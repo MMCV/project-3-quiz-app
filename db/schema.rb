@@ -31,6 +31,14 @@ ActiveRecord::Schema.define(version: 20151006150632) do
   add_index "cohorts_quizzes", ["cohort_id"], name: "index_cohorts_quizzes_on_cohort_id", using: :btree
   add_index "cohorts_quizzes", ["quiz_id"], name: "index_cohorts_quizzes_on_quiz_id", using: :btree
 
+  create_table "cohorts_users", id: false, force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "cohort_id"
+  end
+
+  add_index "cohorts_users", ["cohort_id"], name: "index_cohorts_users_on_cohort_id", using: :btree
+  add_index "cohorts_users", ["user_id"], name: "index_cohorts_users_on_user_id", using: :btree
+
   create_table "questions", force: :cascade do |t|
     t.string   "question_text"
     t.string   "question_answer"
@@ -70,14 +78,6 @@ ActiveRecord::Schema.define(version: 20151006150632) do
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false
   end
-
-  create_table "users_cohorts", id: false, force: :cascade do |t|
-    t.integer "user_id"
-    t.integer "cohort_id"
-  end
-
-  add_index "users_cohorts", ["cohort_id"], name: "index_users_cohorts_on_cohort_id", using: :btree
-  add_index "users_cohorts", ["user_id"], name: "index_users_cohorts_on_user_id", using: :btree
 
   add_foreign_key "questions", "quizzes"
   add_foreign_key "solutions", "questions"
