@@ -23,14 +23,6 @@ ActiveRecord::Schema.define(version: 20151006140324) do
     t.datetime "updated_at",  null: false
   end
 
-  create_table "quizzes", force: :cascade do |t|
-    t.string   "name"
-    t.text     "description"
-    t.date     "assigned_date"
-    t.datetime "created_at",    null: false
-    t.datetime "updated_at",    null: false
-  end
-
   create_table "users", force: :cascade do |t|
     t.string   "first_name"
     t.string   "last_name"
