@@ -3,11 +3,11 @@
 one:
   question_text: MyString
   question_answer: MyString
-  solutions_id: 
+  solution_id: 
   quiz_id: 
 
 two:
   question_text: MyString
   question_answer: MyString
-  solutions_id: 
+  solution_id: 
   quiz_id: 
