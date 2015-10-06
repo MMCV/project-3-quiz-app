@@ -1,8 +1,8 @@
 class QuizzesController < ApplicationController
 
   def index
-    @name = "Quiz 1"
-    render component: 'Quiz', props: { name: @name}
+    @quiz = Quiz.all
+    render component: 'Quiz', props: {name: @quiz.first["name"], assignedDate: @quiz.first["assigned_date"]}
   end
 
   def new
