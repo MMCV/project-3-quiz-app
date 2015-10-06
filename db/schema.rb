@@ -65,10 +65,10 @@ ActiveRecord::Schema.define(version: 20151006150632) do
     t.string   "first_name"
     t.string   "last_name"
     t.string   "email"
-    t.string   "password"
+    t.string   "password_digest"
     t.string   "type"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
   end
 
   create_table "users_cohorts", id: false, force: :cascade do |t|
