@@ -1,5 +1,12 @@
 class QuizzesController < ApplicationController
+
   def index
-    render component: 'Quiz'
+    @name = "Quiz 1"
+    render component: 'Quiz', props: { name: @name}
   end
+
+  def new
+    render component: 'Quiz_New'
+  end
+
 end
