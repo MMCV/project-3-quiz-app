@@ -1,3 +1,5 @@
+require 'pry'
+
 class CohortsController < ApplicationController
 
 	def show
@@ -10,7 +12,11 @@ class CohortsController < ApplicationController
 	end
 
 	def create
-		@cohort = Cohort.find(1)
-		render component: 'ShowCohort', props: { cohort: @cohort }
+		@cohort = Cohort.create(name: params[:name], description: params[:description])
+		render json: @cohort
+	end
+
+	def index
+
 	end
 end
