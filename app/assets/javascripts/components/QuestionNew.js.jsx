@@ -1,37 +1,11 @@
-// var Quiz_New = React.createClass({
-//   var questions = []
-//   getInitialState: function(){
-//
-//   };
-//
-//   render: function() {
-//     return (
-//       <form className="quiz-new">
-//         <input type="text" ref="question-text"></input>
-//         <input type="text" ref="question-answer"></input>
-//         <select>
-//           <option value="multiple-choice">Multiple Choice</option>
-//           <option value="text">Multiple Choice</option>
-//         </select>
-//         <input type="submit" value="submit"></input>
-//         <input type="submit" className="btn btn-default" value="add a question?"></input>
-//       </form>
-//     );
-//   }
-// });
-//
-// // push.question.array
-// refs in each input
-//
-// the input stacks down...on click pushes each
-
 var List = React.createClass({
   render: function() {
     return React.DOM.ul(null,
       this.props.children.map(function(child, index){
         return React.DOM.li(null,
-          child,
-          this.props.answer[index],
+          "Question: ", child, " ",
+          "Answer: ", this.props.answer[index], " ",
+          "Type: ",this.props.type[index],
           React.DOM.button({onClick: this.props.onDeleteItem.bind(null, index)}, "X")
         );
       }, this)
@@ -39,22 +13,27 @@ var List = React.createClass({
   }
 });
 
-var App = React.createClass({
+var Question_New = React.createClass({
   getInitialState: function() {
     return {
       items: [],
-      answers: []
+      answers: [],
+      types: []
     };
   },
 
   render: function() {
      return (
        <div>
-         <List onDeleteItem={this.onDeleteItem} answer={this.state.answers}>
+         <List onDeleteItem={this.onDeleteItem} answer={this.state.answers} type={this.state.types}>
             {this.state.items}
          </List>
          <input ref='new_item' placeholder="Enter Question Here" />
          <input ref='new_item_answer' placeholder="Enter Answer Here"/>
+         <select defaultValue="text" ref='new_item_type'>
+            <option value="multiple-choice">Multiple Choice</option>
+            <option value="text">Short Answer</option>
+          </select>
          <button onClick={this.onAddClicked}>Add</button>
        </div>
      );
@@ -63,17 +42,21 @@ var App = React.createClass({
   onAddClicked: function() {
     var newItems = this.state.items.slice();
     var newAnswers = this.state.answers.slice();
+    var newTypes = this.state.types;
     newAnswers.push(this.refs.new_item_answer.getDOMNode().value);
     newItems.push(this.refs.new_item.getDOMNode().value);
-    this.setState({items: newItems, answers: newAnswers});
+    newTypes.push(this.refs.new_item_type.getDOMNode().value);
+    this.setState({items: newItems, answers: newAnswers, types: newTypes});
   },
 
   onDeleteItem: function(index) {
     var newItems = this.state.items.slice();
     var newAnswers = this.state.answers.slice();
+    var newTypes = this.state.types;
     newItems.splice(index, 1);
     newAnswers.splice(index, 1);
-    this.setState({items: newItems, answers: newAnswers});
+    newTypes.splice(index, 1);
+    this.setState({items: newItems, answers: newAnswers, types: newTypes});
   }
 });
 
