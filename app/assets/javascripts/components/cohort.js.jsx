@@ -1,3 +1,20 @@
+var CohortIndex = React.createClass ({
+	render: function() {
+		var cohorts = this.props.cohorts.map(function(cohort) {
+			return (
+				<div>
+					<ShowCohort cohort={cohort} />
+				</div>
+			)
+		})
+		return (
+			<div>
+				{cohorts}
+			</div>
+		)
+	}
+})
+
 var ShowCohort = React.createClass ({
 	render: function() {
 		return (
