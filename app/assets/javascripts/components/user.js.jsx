@@ -75,7 +75,7 @@ var UserNew = React.createClass({
       error: function(xhr, error, status) {
         console.log(that.state)
         console.log('error: ' + error)
-        console.log('status: ' + status)
+        console.log(': ' + status)
       }
     })
   },        
@@ -110,9 +110,60 @@ var ShowUser = React.createClass ({
   render: function() {
     return (
       <div className="container">
-        <h3>Hello {this.props.user.first_name}</h3>
-        <p>{this.props.user.last_name}</p>
+        <h3>Hello {this.props.user.first_name} {this.props.user.last_name}</h3>
       </div>
     )
+  }
+})
+
+var UserLogin = React.createClass({
+  getInitialState: function() {
+    return {email:'', password: '', submit: 'false', data:{}}
+  },
+  handleLoginChange: function(e) {
+    this.setState({email: e.target.value})
+  },
+  handlePasswordChange: function(e) {
+    this.setState({password: e.target.value})
+  },
+  handleSubmit: function(e) {
+    e.preventDefault();
+    var that = this
+    $.ajax({
+      url: '/login_attempt',
+      method: 'POST',
+      data: {
+        email: that.state.email,
+        password: that.state.password
+      },
+      success: function(results, success, xhr) {
+        console.log(results)
+        that.setState({data:results})
+        that.setState({submit:'true'})
+      },
+      error: function(xhr, error, status) {
+        that.setState({data: error})
+      }
+    })    
+  },
+  render: function() {
+    if (this.state.submit == "false") {
+      return (
+        <div>
+          <form onSubmit={this.handleSubmit}>
+            <input type="text" value={this.state.login} onChange={this.handleLoginChange}/>
+            <input type="text" value={this.state.description} onChange={this.handlePasswordChange}/>
+            <input type="submit"/>
+          </form>
+        </div>
+      )
+    } else {
+      console.log(this.state.data)
+      return (
+        <div>
+          <ShowUser user={this.state.data} />
+        </div>
+      )
+    }
   }
 })

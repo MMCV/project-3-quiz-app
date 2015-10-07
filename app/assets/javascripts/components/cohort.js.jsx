@@ -58,4 +58,3 @@ var NewCohort = React.createClass ({
 		}
 	}
 })
-
