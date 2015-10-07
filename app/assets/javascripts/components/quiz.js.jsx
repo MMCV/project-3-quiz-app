@@ -32,8 +32,12 @@ var Quiz = React.createClass({
         <div>Name: {this.props.name}</div>
         <div>Description: {this.props.description}</div>
         <div>Assigned Date: {this.props.adate}</div>
-var NewQuiz = React.createClass({
+      </div>
+    )
+  }
+})
 
+var NewQuiz = React.createClass({
   getInitialState: function(){
     return {name: '', description: '', assigned_date: '', submit: 'false',  data: {}};
   },
