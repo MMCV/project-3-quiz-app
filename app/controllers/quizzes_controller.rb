@@ -6,7 +6,7 @@ class QuizzesController < ApplicationController
   end
 
   def new
-    render component: 'Quiz_New'
+    render component: 'App'
   end
 
 end
