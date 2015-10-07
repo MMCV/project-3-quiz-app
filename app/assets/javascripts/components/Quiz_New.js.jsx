@@ -31,7 +31,7 @@ var List = React.createClass({
       this.props.children.map(function(child, index){
         return React.DOM.li(null,
           child,
-          this.props.answer,
+          this.props.answer[index],
           React.DOM.button({onClick: this.props.onDeleteItem.bind(null, index)}, "X")
         );
       }, this)
@@ -51,7 +51,7 @@ var App = React.createClass({
      return (
        <div>
          <List onDeleteItem={this.onDeleteItem} answer={this.state.answers}>
-             {this.state.items}
+            {this.state.items}
          </List>
          <input ref='new_item' placeholder="Enter Question Here" />
          <input ref='new_item_answer' placeholder="Enter Answer Here"/>
@@ -74,5 +74,13 @@ var App = React.createClass({
     newItems.splice(index, 1);
     newAnswers.splice(index, 1);
     this.setState({items: newItems, answers: newAnswers});
+  }
+});
+
+var ListItem = React.createClass({
+  render: function() {
+     return (
+       <p> {this.props.question} </p>
+     );
   }
 });
