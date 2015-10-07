@@ -1,8 +1,9 @@
 class UsersController < ApplicationController
 
   def index
-    @users = User.all
-    render component: 'User', props: { data: @users }
+    @students = Student.all
+    @instructors = Instructor.all
+    render component: 'User', props: {:students => @students, instructors: @instructors}
   end
 
 end

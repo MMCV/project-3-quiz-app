@@ -1,17 +1,31 @@
 var User = React.createClass({
   render: function() {
-    var userNodes = this.props.data.map(function(user) {
+    var studentNodes = this.props.students.map(function(student) {
     return (
-      <div className='user'>
-        <h3>{user.first_name} {user.last_name}</h3>
-        <div>{user.email}</div>
+      <div className='student'>
+        <h3>{student.first_name} {student.last_name}</h3>
+        <div>{student.email}</div>
+      </div>
+    );
+  });
+  var instructorNodes = this.props.instructors.map(function(instructor) {
+    return (
+      <div className='instructor'>
+        <h3>{instructor.first_name} {instructor.last_name}</h3>
+        <div>{instructor.email}</div>
       </div>
     );
   });
   return (
     <div className='userListing'>
-      <h1 className='users'>Users:</h1>
-        {userNodes}
+      <div className='instructorListing'>
+        <h1 className='instructors'>Instructors:</h1>
+          {instructorNodes}
+      </div>
+      <div className='studentListing'>
+        <h1 className='students'>Students:</h1>
+          {studentNodes}
+      </div>
     </div>
     );
   }
