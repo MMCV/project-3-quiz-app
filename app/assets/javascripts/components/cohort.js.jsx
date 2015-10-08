@@ -1,3 +1,20 @@
+var CohortIndex = React.createClass ({
+	render: function() {
+		var cohorts = this.props.cohorts.map(function(cohort) {
+			return (
+				<div>
+					<ShowCohort cohort={cohort} />
+				</div>
+			)
+		})
+		return (
+			<div>
+				{cohorts}
+			</div>
+		)
+	}
+})
+
 var ShowCohort = React.createClass ({
 	render: function() {
 		return (
@@ -12,7 +29,7 @@ var ShowCohort = React.createClass ({
 
 var NewCohort = React.createClass ({
 	getInitialState: function() {
-		return {name:'', description:'', c: 'false', data:{}}
+		return {name:'', description:'', submit: 'false', data:{}}
 	},
 	handleNameChange: function(e) {
 		this.setState({name:e.target.value})
@@ -32,12 +49,12 @@ var NewCohort = React.createClass ({
 			},
 			success: function(results, success, xhr) {
 				that.setState({data:results})
-				that.setState({c:'true'})
+				that.setState({submit:'true'})
 			}
 		})
 	},
 	render: function() {
-		if ( this.state.c == "true") {
+		if ( this.state.submit == "true") {
 			console.log(this.state.data)
 			return (
 				<div className="container">
@@ -58,4 +75,3 @@ var NewCohort = React.createClass ({
 		}
 	}
 })
-
