@@ -12,7 +12,7 @@ var QuizIndex = React.createClass({
 
 var QuizList = React.createClass({
   render: function() {
-    var quizz = this.props.quizzes.map(function(quiz) {
+    var quiz = this.props.quizzes.map(function(quiz) {
       return (
         <div>
           <Quiz name={quiz.name} description={quiz.description} adate={quiz.assigned_date} />
@@ -20,8 +20,8 @@ var QuizList = React.createClass({
       )
     })
     return (
-      <div>{quizz}</div>
-    ) 
+      <div>{quiz}</div>
+    )
   }
 })
 
@@ -214,7 +214,7 @@ var CreateTextQuestion = React.createClass ({
             <input type="submit" />
           </form>
         </div>
-      )     
+      )
     }
   }
 })
