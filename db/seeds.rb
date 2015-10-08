@@ -18,10 +18,10 @@
 
 
 cohorts = Cohort.create([
-  {name: 'Pluto', description: FFaker::BaconIpsum.sentence},
-  {name: 'Bacon', description: FFaker::BaconIpsum.sentence},
-  {name: 'Steak', description: FFaker::BaconIpsum.sentence},
-  {name: 'Pizza', description: FFaker::BaconIpsum.sentence},
+  {name: 'Pluto', description: FFaker::Lorem.sentence},
+  {name: 'Bacon', description: FFaker::Lorem.sentence},
+  {name: 'Steak', description: FFaker::Lorem.sentence},
+  {name: 'Pizza', description: FFaker::Lorem.sentence},
   ]);
 
   User.create({first_name: 'Chris', last_name:'Smith', email: 'cs@ga.co', password: 'chrs', type: 'Student', :cohorts => Cohort.where(:name => ['Pluto', 'Bacon'])});
@@ -35,7 +35,7 @@ cohorts = Cohort.create([
 
 
 quizzes = Quiz.create([
-  {name: FFaker::Lorem.words, description:FFaker::Lorem.sentence, assigned_date: "2015-09-01", :cohorts=>Cohort.where(:id=>['2','4'])},
-  {name: FFaker::Lorem.words, description:FFaker::Lorem.sentence, assigned_date: "2015-09-01"},
-  {name: FFaker::Lorem.words, description:FFaker::Lorem.sentence, assigned_date: "2015-09-01"},
+  {name: FFaker::Lorem.word, description:FFaker::Lorem.sentence, assigned_date: "2015-09-01", :cohorts=>Cohort.where(:id=>['2','4'])},
+  {name: FFaker::Lorem.word, description:FFaker::Lorem.sentence, assigned_date: "2015-09-01"},
+  {name: FFaker::Lorem.word, description:FFaker::Lorem.sentence, assigned_date: "2015-09-01"},
   ]);

@@ -97,7 +97,10 @@ var UserNew = React.createClass({
             <input type="text" value={this.state.email} onChange={this.handleEmailChange}/>
             <input type="text" value={this.state.password} onChange={this.handlePwordChange}/>
             <input type="text" value={this.state.password_confirmation} onChange={this.handleCPwordChange}/>
-            <input type="text" value={this.state.type} onChange={this.handleTypeChange}/>
+            <select>
+              <option onSelect={this.handleTypeChange} value="Student">Student</option>
+              <option onSelect={this.handleTypeChange} value="Instructor">Instructor</option>
+            </select>
             <input type="submit"/>
           </form>
         </div>
@@ -137,12 +140,12 @@ var UserLogin = React.createClass({
         password: that.state.password
       },
       success: function(results, success, xhr) {
-        console.log(results)
         that.setState({data:results})
         that.setState({submit:'true'})
       },
       error: function(xhr, error, status) {
-        that.setState({data: error})
+        console.log("error: " + error)
+        console.log("status " + status)
       }
     })    
   },
@@ -150,9 +153,10 @@ var UserLogin = React.createClass({
     if (this.state.submit == "false") {
       return (
         <div>
+          <h2>Log in please</h2>
           <form onSubmit={this.handleSubmit}>
-            <input type="text" value={this.state.login} onChange={this.handleLoginChange}/>
-            <input type="text" value={this.state.description} onChange={this.handlePasswordChange}/>
+            <input type="text" value={this.state.email} onChange={this.handleLoginChange}/>
+            <input type="text" value={this.state.password} onChange={this.handlePasswordChange}/>
             <input type="submit"/>
           </form>
         </div>
