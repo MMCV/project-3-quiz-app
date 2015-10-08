@@ -1,7 +1,7 @@
 class StudentsController < ApplicationController
 
   def index
-    @student_id = 1
+    @student_id = current_user.id
     @student = Student.find(@student_id)
     @grades = @student.grades
     @grades_display = @grades.map{|e| e.grade * 100}

@@ -39,7 +39,7 @@ var StudentQuiz = React.createClass({
   render: function() {
     return (
       <div className="studentQuiz">
-        {this.props.quizName}. Your grade: {this.props.gradeValue}%
+        Quiz name: {this.props.quizName}, your grade was: {this.props.gradeValue}%.
       </div>
     );
   }
