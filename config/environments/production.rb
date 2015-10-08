@@ -11,6 +11,8 @@ Rails.application.configure do
   config.eager_load = true
 
   config.react.variant = :production
+
+  config.assets.initialize_on_precompile = true
   
   # Full error reports are disabled and caching is turned on.
   config.consider_all_requests_local       = false
