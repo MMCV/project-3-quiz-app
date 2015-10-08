@@ -135,6 +135,7 @@ var Question_New = React.createClass({
       answers: [],
       types: [],
       question_text: '',
+      question_dummy_answers: [],
       question_answer: '',
       question_type: ''
     };
@@ -151,7 +152,8 @@ var Question_New = React.createClass({
       url: '/questions',
       method: 'POST',
       data: {
-        question_text: that.state.question_text
+        question_text: that.state.question_text,
+        question_answer: that.state.question_answer
       },
       success: function(results, success) {
         that.setState({data:results})

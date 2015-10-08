@@ -19,7 +19,7 @@ var Question_New = React.createClass({
       items: [],
       answers: [],
       types: []
-    };
+    }
   },
 
   render: function() {
