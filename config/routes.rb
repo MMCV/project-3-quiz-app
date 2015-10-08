@@ -5,6 +5,10 @@ Rails.application.routes.draw do
   resources :questions
   resources :quizzes
   resources :solutions
+
+  get "/instructors" => "instructor#show"
+  get "/studentlists" => "instructor#studentlist"
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
