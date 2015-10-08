@@ -8,6 +8,7 @@ Rails.application.routes.draw do
   post '/login_attempt' => 'users#login_attempt'
   get '/login' => 'users#login'
   get '/student', to: 'students#index'
+  get '/student/:id', to: 'students#show'
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
