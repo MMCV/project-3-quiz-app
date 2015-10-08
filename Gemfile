@@ -14,7 +14,7 @@ gem 'ffaker'
 
 group :development, :test do
   gem 'byebug'
-  gem 'react-rails'
+  gem 'react-rails', '~> 1.3.0'
 	gem 'pry-rails'
 	gem 'better_errors'
 	gem "binding_of_caller"
