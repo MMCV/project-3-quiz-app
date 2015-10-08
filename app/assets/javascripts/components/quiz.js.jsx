@@ -39,7 +39,7 @@ var Quiz = React.createClass({
 
 var NewQuiz = React.createClass({
   getInitialState: function(){
-    return {name: '', description: '', assigned_date: '', submit: 'false',  data: {}};
+    return {name: '', description: '', assigned_date: '', submit: 'false',  data: {}, quiz_id:0};
   },
 
   handleNameChange: function(event) {
@@ -69,6 +69,7 @@ var NewQuiz = React.createClass({
       success: function(results, success) {
         that.setState({data:results})
         that.setState({submit:'true'})
+        that.setState({quiz_id: results.id})
       },
       error: function(xhr, error, status) {
         console.log(that.state)
@@ -81,7 +82,7 @@ var NewQuiz = React.createClass({
     if (this.state.submit == "true") {
       return(
         <div className="container">
-          <Question_New quiz={this.state.data} />
+          <CreateQuestionTemplate quiz_id={this.state.quiz_id} />
         </div>
       )
     } else {
@@ -113,38 +114,65 @@ var ShowQuiz = React.createClass ({
   }
 })
 
-var List = React.createClass({
+var CreateQuestionTemplate = React.createClass({
+  getInitialState: function() {
+    return {questions: [], type:''}
+  },
+  onAddClicked: function(e) {
+    this.state.questions.push(this.state.type)
+    this.setState({type: this.state.type})
+  },
+  handleQuestionType: function(e) {
+    this.setState({type: e.target.value})
+  },
   render: function() {
-    return React.DOM.ul(null,
-      this.props.children.map(function(child, index){
-        return React.DOM.li(null,
-          "Question: ", child, " ",
-          "Answer: ", this.props.answer[index], " ",
-          "Type: ",this.props.type[index],
-          React.DOM.button({onClick: this.props.onDeleteItem.bind(null, index)}, "X")
-        );
-      }, this)
-    );
+    return (
+      <div>
+        <select defaultValue="" onChange={this.handleQuestionType}>
+          <option value=""></option>
+          <option value="multiple-choice">Multiple Choice</option>
+          <option value="text">Short Answer</option>
+        </select>
+        <button onClick={this.onAddClicked}>Add</button>
+        <AddQuestionField questions={this.state.questions} type={this.state.type} quiz_id={this.props.quiz_id} />
+      </div>
+    )
   }
-});
+})
 
-var Question_New = React.createClass({
+var AddQuestionField = React.createClass({
+  render: function() {
+    var that=this
+    var questionmap = this.props.questions.map(function(question) {
+      console.log(that.props.type)
+      if (question == "text") {
+        return (
+          <CreateTextQuestion type={that.props.type} />
+        )
+      } else {
+        return (
+          <CreateMultipleChoiceQuestion type={that.props.type} />
+        )
+      }
+    })
+    return (
+      <div>
+        {questionmap}
+      </div>
+    )
+  }
+})
+
+var CreateTextQuestion = React.createClass ({
   getInitialState: function() {
     return {
-      items: [],
-      answers: [],
-      types: [],
-      question_text: '',
-      question_dummy_answers: [],
-      question_answer: '',
-      question_type: ''
+      question_value:'',
+      status: ''
     };
   },
-
-  handleQuestionTextChange: function(e) {
-    this.setState({question_text:e.target.value})
+  handleTextChange: function(e) {
+    this.setState({question_value:e.target.value})
   },
-
   handleSubmit: function(e) {
     e.preventDefault();
     var that = this
@@ -152,62 +180,138 @@ var Question_New = React.createClass({
       url: '/questions',
       method: 'POST',
       data: {
-        question_text: that.state.question_text,
-        question_answer: that.state.question_answer
+        question_text: that.state.question_value,
+        question_answer: '',
+        question_type: that.props.type,
+        quiz_id: 1
       },
-      success: function(results, success) {
-        that.setState({data:results})
-        console.log(that.state.question_text)
+      success: function(data) {
+        that.setState({status:'submitted'})
       },
       error: function(xhr, error, status) {
-        console.log('error: '+ error)
+        console.log('error: ' + error)
+        console.log('status: ' + status)
       }
     })
   },
-
   render: function() {
-     return (
-       <div>
-       <h3> {this.props.quiz.name} </h3>
-         <List onDeleteItem={this.onDeleteItem} answer={this.state.answers} type={this.state.types}>
-            {this.state.items}
-         </List>
-         <input ref='new_item' value={this.state.question_text}  onChange={this.handleQuestionTextChange} placeholder="Enter Question Here" />
-         <input ref='new_item_answer' placeholder="Enter Answer Here"/>
-         <select defaultValue="text" ref='new_item_type'>
-            <option value="multiple-choice">Multiple Choice</option>
-            <option value="text">Short Answer</option>
-          </select>
-         <button onClick={this.onAddClicked}>Add</button>
-       </div>
-     );
-   },
+    var that = this
+    if (this.state.status == "submitted") {
+      return (
+        <div>
+          <h4>{that.state.question_value}</h4>
+          <button onClick={that.handleEdit}>Edit</button>
+        </div>
+      )
+    } else {
+      return (
+        <div>
+          <br/>
+          <h4>Create short answer question</h4>
+          <form onSubmit={this.handleSubmit}>
+            <input type="text" onChange={this.handleTextChange} value={this.state.question_value} />
+            <br/>
+            <input type="submit" />
+          </form>
+        </div>
+      )     
+    }
+  }
+})
 
-  onAddClicked: function() {
-    var newItems = this.state.items.slice();
-    var newAnswers = this.state.answers.slice();
-    var newTypes = this.state.types;
-    newAnswers.push(this.refs.new_item_answer.getDOMNode().value);
-    newItems.push(this.refs.new_item.getDOMNode().value);
-    newTypes.push(this.refs.new_item_type.getDOMNode().value);
-    this.setState({items: newItems, answers: newAnswers, types: newTypes});
+var CreateMultipleChoiceQuestion = React.createClass ({
+  getInitialState: function() {
+    return {
+      question_value:'',
+      answer:'',
+      answer_1: '',
+      answer_2: '',
+      answer_3: '',
+      answer_4: '',
+      status: ''
+    };
   },
-
-  onDeleteItem: function(index) {
-    var newItems = this.state.items.slice();
-    var newAnswers = this.state.answers.slice();
-    var newTypes = this.state.types;
-    newItems.splice(index, 1);
-    newAnswers.splice(index, 1);
-    newTypes.splice(index, 1);
-    this.setState({items: newItems, answers: newAnswers, types: newTypes});
-  }
-});
-
-var ListItem = React.createClass({
+  handleTextChange: function(e) {
+    this.setState({question_value:e.target.value})
+  },
+  handleAnswer1Change: function(e) {
+    this.setState({answer_1: e.target.value})
+  },
+  handleAnswer2Change: function(e) {
+    this.setState({answer_2: e.target.value})
+  },
+  handleAnswer3Change: function(e) {
+    this.setState({answer_3: e.target.value})
+  },
+  handleAnswer4Change: function(e) {
+    this.setState({answer_4: e.target.value})
+  },
+  handleSubmit: function(e) {
+    e.preventDefault();
+    var that = this
+    console.log(that.props.type)
+    $.ajax({
+      url: '/questions',
+      method: 'POST',
+      data: {
+        question_text: that.state.question_value,
+        question_answer: that.state.answer,
+        quiz_id: 1,
+        answer_1: that.state.answer_1,
+        answer_2: that.state.answer_2,
+        answer_3: that.state.answer_3,
+        answer_4: that.state.answer_4,
+        question_type: that.props.type
+      },
+      success: function(data) {
+        that.setState({status:'submitted'})
+      },
+      error: function(xrh, error, status) {
+        console.log('error: ' + error)
+        console.log('status: ' + status)
+      }
+    })
+  },
+  handleEdit: function() {
+    return
+  },
   render: function() {
-     return (
-       <p> {this.props.question} </p>
-     );
+    var that = this
+    if (this.state.status == "submitted") {
+      return (
+        <div>
+          <h4>{that.state.question_value}</h4>
+          <ul>
+            <li>{that.state.answer_1}</li>
+            <li>{that.state.answer_2}</li>
+            <li>{that.state.answer_3}</li>
+            <li>{that.state.answer_4}</li>
+          </ul>
+          <button onClick={this.handleEdit}>Edit</button>
+        </div>
+      )
+    } else {
+      return (
+        <div>
+          <br/>
+          <form onSubmit={this.handleSubmit}>
+            <input type="text" onChange={this.handleTextChange} value={this.state.question_value} /> <br/>
+            <input type="checkbox">A</input>
+            <input type="text" onChange={this.handleAnswer1Change} value={this.state.answer_1}></input>
+            <br/>
+            <input type="checkbox">B</input>
+            <input type="text" onChange={this.handleAnswer2Change} value={this.state.answer_2}></input>
+            <br/>
+            <input type="checkbox">C</input>
+            <input type="text" onChange={this.handleAnswer3Change} value={this.state.answer_3}></input>
+            <br/>
+            <input type="checkbox">D</input>
+            <input type="text" onChange={this.handleAnswer4Change} value={this.state.answer_4}></input>
+            <br/>
+            <input type="submit" />
+          </form>
+        </div>
+      )
+    }
   }
-});
+})
