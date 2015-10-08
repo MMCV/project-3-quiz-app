@@ -5,9 +5,16 @@ Rails.application.routes.draw do
   resources :questions
   resources :quizzes
   resources :solutions
+
+
+  get "/instructors" => "instructor#show"
+  get "/studentlists" => "instructor#studentlist"
+
+
   post '/login_attempt' => 'sessions#create'
   get '/login' => 'sessions#new'
   get '/logout' => 'sessions#destroy'
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
