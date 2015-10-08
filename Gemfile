@@ -12,6 +12,7 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 gem 'bcrypt', '~> 3.1.7'
 gem 'ffaker'
 gem 'react-rails', '~> 1.3.0'
+gem 'bootstrap-sass'
 
 group :development, :test do
   gem 'byebug'
