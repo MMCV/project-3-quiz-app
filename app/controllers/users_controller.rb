@@ -19,6 +19,7 @@ class UsersController < ApplicationController
     if user.save
       session[:user_id] = user.id
   	  render json: user
+      UserMailer.welcome_email(@user).deliver_now
     end
   end
 

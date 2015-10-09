@@ -1,5 +1,16 @@
 Rails.application.configure do
   config.react.variant = :development
+
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.smtp_settings = {
+    address:              'smtp.gmail.com',
+    port:                 587,
+    domain:               'gmail.com',
+    user_name:            ENV['username'],
+    password:             ENV['password'],
+    authentication:       'plain',
+    enable_starttls_auto: true  }
+
   # Settings specified here will take precedence over those in config/application.rb.
 
   # In the development environment your application's code is reloaded on
