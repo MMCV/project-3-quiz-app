@@ -21,7 +21,7 @@ var QuizList = React.createClass({
     })
     return (
       <div>{quizz}</div>
-    ) 
+    )
   }
 })
 
@@ -214,7 +214,7 @@ var CreateTextQuestion = React.createClass ({
             <input type="submit" />
           </form>
         </div>
-      )     
+      )
     }
   }
 })
@@ -315,3 +315,13 @@ var CreateMultipleChoiceQuestion = React.createClass ({
     }
   }
 })
+
+var CurrentQuiz = React.createClass({
+  render: function() {
+    return (
+      <div className="currentQuiz">
+        <div>{this.props.name}</div>
+      </div>
+    );
+  }
+});
