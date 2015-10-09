@@ -13,6 +13,7 @@ gem 'bcrypt', '~> 3.1.7'
 gem 'ffaker'
 gem 'react-rails', '~> 1.3.0'
 gem 'bootstrap-sass'
+gem 'figaro'
 
 group :development, :test do
   gem 'byebug'

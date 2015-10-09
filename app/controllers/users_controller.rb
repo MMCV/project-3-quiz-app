@@ -17,9 +17,9 @@ class UsersController < ApplicationController
       user = Instructor.new(first_name: params[:first_name], last_name: params[:last_name], email: params[:email], password: params[:password], password_confirmation: params[:password_confirmation])
     end
     if user.save
+      UserMailer.welcome_email(user).deliver_now
       session[:user_id] = user.id
   	  render json: user
-      UserMailer.welcome_email(@user).deliver_now
     end
   end
 
