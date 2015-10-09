@@ -10,7 +10,7 @@ class SessionsController < ApplicationController
       # Save the user id inside the browser cookie. This is how we keep the user
       # logged in when they navigate around our website.
       session[:user_id] = @user.id
-	  	if @user.type == 'Student'
+	  	if user.type == 'Student'
 				redirect_to '/student'
 			elsif @user.type == 'Instructor'
 				redirect_to '/instructors'
