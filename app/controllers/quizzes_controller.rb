@@ -13,13 +13,15 @@ class QuizzesController < ApplicationController
 
   def create
     quiz = Quiz.create(name: params[:name], description: params[:description], assigned_date: params[:assigned_date])
-    quiz.cohorts << params[:cohort]
-    render json: quiz
+    cohort = Cohort.find(params[:cohort].to_i)
+    quiz.cohorts << cohort
+    render component: 'CreateQuestionTemplate', props: {quiz_id: quiz.id }
   end
 
   def show
     quiz = Quiz.find(params[:id])
-    render component: 'ShowQuiz', props: { quiz: quiz}
+    questions = quiz.questions
+    render component: 'ShowQuiz', props: { quiz: quiz, questions: questions }
   end
 
 
