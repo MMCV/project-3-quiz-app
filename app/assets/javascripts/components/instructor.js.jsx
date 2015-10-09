@@ -5,6 +5,7 @@ var ShowInstructor = React.createClass({
       var cohortlistNodes = this.props.cohorts.map(function(cohort){
         return(
           <div className="container">
+            <a href="/instructorsignup">Sign up for a cohort</a>
             <h2>{cohort.name} Students: </h2>
             <StudentBox cohort={cohort.name}/>
             <h2>{cohort.name} Quizzes: </h2>

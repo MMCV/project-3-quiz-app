@@ -33,4 +33,15 @@ class CohortsController < ApplicationController
 		current_user.cohorts << @cohort
 		redirect_to cohort_path(@cohort)
 	end
+
+	def instructor_signup
+		@cohorts = Cohort.all
+		render component: 'CohortInstructorSignup', props: { cohorts: @cohorts }
+	end
+
+	def instructor_signuppost
+		@cohort = Cohort.find_by(name: params[:cohort])
+		current_user.cohorts << @cohort
+		redirect_to cohort_path(@cohort)
+	end
 end

@@ -18,6 +18,8 @@ Rails.application.routes.draw do
   get "/quizlist" => 'instructor#quizlist'
   get '/studentsignup', to: 'cohorts#student_signup'
   post '/student_signuppost', to: 'cohorts#student_signuppost'
+  get '/instructorsignup', to: 'cohorts#instructor_signup'
+  post '/instructor_signuppost', to: 'cohorts#instructor_signuppost'
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
