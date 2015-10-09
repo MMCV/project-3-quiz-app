@@ -24,6 +24,7 @@ class QuizzesController < ApplicationController
     render component: 'ShowQuiz', props: { quiz: quiz, questions: questions }
   end
 
+
   def current
     @user = User.find(1)
     @cohort = @user.cohorts
@@ -33,5 +34,6 @@ class QuizzesController < ApplicationController
 
     render component: 'CurrentQuiz', props: {name: @quiz}
   end
+
 
 end

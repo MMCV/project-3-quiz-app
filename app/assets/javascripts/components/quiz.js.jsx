@@ -290,7 +290,7 @@ var CurrentQuiz = React.createClass({
   render: function() {
     return (
       <div className="currentQuiz">
-        <div>{this.props.name}</div>
+        <div>{this.props.quiz}</div>
       </div>
     );
   }
