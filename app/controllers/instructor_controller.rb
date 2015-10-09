@@ -26,10 +26,4 @@ class InstructorController < ApplicationController
 
   end
 
-
-
-
-
-
-
 end
