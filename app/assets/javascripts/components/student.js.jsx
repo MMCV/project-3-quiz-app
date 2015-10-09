@@ -15,6 +15,7 @@ var StudentName = React.createClass({
       <div className="studentNameContainer">
         <h2 className="studentName">Welcome, {this.props.student.first_name}!</h2>
         <div>Here are the quizzes you have taken:</div>
+        <a href="/studentsignup">Sign up for a cohort</a>
       </div>
     );
   }
