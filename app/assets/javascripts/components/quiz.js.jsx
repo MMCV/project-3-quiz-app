@@ -21,7 +21,7 @@ var QuizList = React.createClass({
     })
     return (
       <div>{quizz}</div>
-    ) 
+    )
   }
 })
 
