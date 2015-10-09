@@ -6,7 +6,7 @@ Rails.application.routes.draw do
   resources :quizzes
   resources :solutions
 
-
+  get '/style_guide' => 'style_guide#index'
   get "/instructors" => "instructor#show"
   get "/studentlists" => "instructor#studentlist"
   post '/login_attempt' => 'sessions#create'

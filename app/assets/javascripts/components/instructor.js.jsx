@@ -83,6 +83,7 @@ var StudentList = React.createClass({
 
 var Student = React.createClass({
   render:function(){
+    var StudentLink =
     return(
       <div><a href="#">{this.props.student.first_name} {this.props.student.last_name} </a></div>
     )
@@ -128,7 +129,7 @@ var InstructorQuizList = React.createClass({
     if (this.props.data){
       var QuizNodes = this.props.data.map(function(quiz){
         return(
-          <InstructorQuiz quiz={quiz.name}/>
+          <InstructorQuiz quiz={quiz}/>
         )
       });
     }else{
@@ -144,9 +145,10 @@ var InstructorQuizList = React.createClass({
 
 var InstructorQuiz = React.createClass({
   render:function(){
-    console.log(this.props.quiz.name)
+    console.log(this.props.quiz.id);
+    var quizLink = "/quizzes/"+(this.props.quiz.id)
     return(
-      <div><a href="#">{this.props.quiz}</a></div>
+      <div><a href={quizLink}>{this.props.quiz.name}</a></div>
     )
   }
 })
