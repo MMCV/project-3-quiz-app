@@ -9,11 +9,11 @@ Rails.application.routes.draw do
 
   get "/instructors" => "instructor#show"
   get "/studentlists" => "instructor#studentlist"
-
-
   post '/login_attempt' => 'sessions#create'
   get '/login' => 'sessions#new'
   get '/logout' => 'sessions#destroy'
+  get '/student', to: 'students#index'
+  get '/quiz', to: 'quizzes#current'
 
   get "/quizlist" => 'instructor#quizlist'
 

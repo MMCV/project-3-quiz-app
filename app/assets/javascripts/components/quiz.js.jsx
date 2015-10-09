@@ -12,7 +12,7 @@ var QuizIndex = React.createClass({
 
 var QuizList = React.createClass({
   render: function() {
-    var quiz = this.props.quizzes.map(function(quiz) {
+    var quizz = this.props.quizzes.map(function(quiz) {
       return (
         <div>
           <Quiz name={quiz.name} description={quiz.description} adate={quiz.assigned_date} />
@@ -20,7 +20,7 @@ var QuizList = React.createClass({
       )
     })
     return (
-      <div>{quiz}</div>
+      <div>{quizz}</div>
     )
   }
 })
@@ -324,3 +324,24 @@ var CreateMultipleChoiceQuestion = React.createClass ({
     }
   }
 })
+<<<<<<< HEAD
+=======
+
+
+var CurrentQuiz = React.createClass({
+  render: function() {
+    return (
+      <div className="currentQuiz">
+        <div>{this.props.name}</div>
+      </div>
+    );
+  }
+});
+
+
+var CohortSelect = React.createClass ({
+  render: function() {
+
+  }
+})
+>>>>>>> fbb7f42f284f6f97ab36eda901694fb32c54a7d4
