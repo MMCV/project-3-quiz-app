@@ -193,8 +193,8 @@ var UserLogin = React.createClass({
         <div>
           <h2>Log in please</h2>
           <form onSubmit={this.handleSubmit}>
-            <input type="text" value={this.state.email} onChange={this.handleLoginChange}/>
-            <input type="text" value={this.state.password} onChange={this.handlePasswordChange}/>
+            <div>Email:<input type="text" value={this.state.email} onChange={this.handleLoginChange}/></div>
+            <div>Password:<input type="text" value={this.state.password} onChange={this.handlePasswordChange}/></div>
             <input className="btn-default" type="submit"/>
           </form>
         </div>

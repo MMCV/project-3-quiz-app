@@ -324,9 +324,6 @@ var CreateMultipleChoiceQuestion = React.createClass ({
     }
   }
 })
-<<<<<<< HEAD
-=======
-
 
 var CurrentQuiz = React.createClass({
   render: function() {
@@ -337,11 +334,3 @@ var CurrentQuiz = React.createClass({
     );
   }
 });
-
-
-var CohortSelect = React.createClass ({
-  render: function() {
-
-  }
-})
->>>>>>> fbb7f42f284f6f97ab36eda901694fb32c54a7d4

@@ -1,5 +1,5 @@
 class QuestionsController < ApplicationController
-
+before_filter :authorize
 def new
 	render component: 'CreateQuizTemplate'
 end

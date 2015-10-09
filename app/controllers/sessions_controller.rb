@@ -1,5 +1,4 @@
 class SessionsController < ApplicationController
-
 	def new
 		render component: 'UserLogin'
 	end
