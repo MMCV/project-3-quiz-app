@@ -223,7 +223,7 @@ var CreateTextQuestion = React.createClass ({
             <input type="submit" />
           </form>
         </div>
-      )     
+      )
     }
   }
 })
@@ -324,6 +324,19 @@ var CreateMultipleChoiceQuestion = React.createClass ({
     }
   }
 })
+<<<<<<< HEAD
+=======
+
+
+var CurrentQuiz = React.createClass({
+  render: function() {
+    return (
+      <div className="currentQuiz">
+        <div>{this.props.name}</div>
+      </div>
+    );
+  }
+});
 
 
 var CohortSelect = React.createClass ({
@@ -331,3 +344,4 @@ var CohortSelect = React.createClass ({
 
   }
 })
+>>>>>>> fbb7f42f284f6f97ab36eda901694fb32c54a7d4
