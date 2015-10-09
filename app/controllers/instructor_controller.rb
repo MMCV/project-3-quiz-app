@@ -4,7 +4,7 @@ class InstructorController < ApplicationController
 
   def show
 
-  @user_id = 32
+  @user_id = current_user.id
   @instructor = User.find(@user_id)
   @instructor_cohort = @instructor.cohorts
 
