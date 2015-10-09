@@ -13,6 +13,7 @@ class CohortsController < ApplicationController
 	def create
 		cohort = Cohort.new(name: params[:name], description: params[:description])
 		if cohort.save
+			current_user.cohorts << cohort
 			render json: cohort
 		end
 	end

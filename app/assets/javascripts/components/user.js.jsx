@@ -53,9 +53,10 @@ var UserNew = React.createClass({
   },
   handleTypeChange: function(e) {
     this.setState({type:e.target.value})
-  },  
+  },
   handleSubmit: function(e) {
     e.preventDefault();
+    console.log(this.state.type)
     var that = this
     $.ajax({
       url: '/users',
@@ -78,7 +79,7 @@ var UserNew = React.createClass({
         console.log(': ' + status)
       }
     })
-  },        
+  },
   render: function() {
     if ( this.state.submit == "true") {
       console.log(this.state.data)
@@ -91,17 +92,44 @@ var UserNew = React.createClass({
       return (
         <div className="container">
           <h3>Create a new user</h3>
-          <form onSubmit={this.handleSubmit}>
-            <input type="text" value={this.state.first_name} onChange={this.handleFnameChange}/>
-            <input type="text" value={this.state.last_name} onChange={this.handleLnameChange}/>
-            <input type="text" value={this.state.email} onChange={this.handleEmailChange}/>
-            <input type="text" value={this.state.password} onChange={this.handlePwordChange}/>
-            <input type="text" value={this.state.password_confirmation} onChange={this.handleCPwordChange}/>
-            <select>
-              <option onSelect={this.handleTypeChange} value="Student">Student</option>
-              <option onSelect={this.handleTypeChange} value="Instructor">Instructor</option>
-            </select>
-            <input type="submit"/>
+          <form role="form" onSubmit={this.handleSubmit}>
+            <div className="form-group">
+              <label for="firstname">First Name</label>
+              <input type="text" name="firstname" className="form-control" value={this.state.first_name} onChange={this.handleFnameChange}/>
+            </div>
+
+            <div className="form-group">
+              <label for="lastname">Last Name</label>
+              <input type="text" name="lastname" className="form-control" value={this.state.last_name} onChange={this.handleLnameChange}/>
+            </div>
+
+            <div className="form-group">
+              <label for="email">Email</label>
+              <input type="text" name="email" className="form-control" value={this.state.email} onChange={this.handleEmailChange}/>
+            </div>
+
+            <div className="form-group">
+              <label for="password">Password</label>
+              <input type="text" name="password" className="form-control" value={this.state.password} onChange={this.handlePwordChange}/>
+            </div>
+
+            <div className="form-group">
+              <label for="passconfirm">Password Confirm</label>
+              <input type="text" name="passconfirm" className="form-control" value={this.state.password_confirmation} onChange={this.handleCPwordChange}/>
+            </div>
+
+            <div className="form-group">
+              <label for="usertype">Instructor or Student? </label>
+              <select name="usertype" className="form-control">
+                <option onSelect={this.handleTypeChange} value="Student">Student</option>
+                <option onSelect={this.handleTypeChange} value="Instructor">Instructor</option>
+              </select>
+            </div>
+
+            <div className="form-group">
+              <input type="submit" value="Sign Up"/>
+            </div>
+
           </form>
         </div>
       )
@@ -111,9 +139,19 @@ var UserNew = React.createClass({
 
 var ShowUser = React.createClass ({
   render: function() {
+    var divStyle = {width: '40%'};
     return (
-      <div className="container">
-        <h3>Hello {this.props.user.first_name} {this.props.user.last_name}</h3>
+      <div>
+      <div className="jumbotron">
+        <div className="container">
+          <h1>Hello {this.props.user.first_name} {this.props.user.last_name}</h1>
+        </div>
+      </div>
+        <div className="progress">
+          <div className="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style={divStyle}>
+          <span className="sr-only">60% Complete</span>
+          </div>
+        </div>
       </div>
     )
   }
@@ -147,7 +185,7 @@ var UserLogin = React.createClass({
         console.log("error: " + error)
         console.log("status " + status)
       }
-    })    
+    })
   },
   render: function() {
     if (this.state.submit == "false") {
@@ -157,7 +195,7 @@ var UserLogin = React.createClass({
           <form onSubmit={this.handleSubmit}>
             <input type="text" value={this.state.email} onChange={this.handleLoginChange}/>
             <input type="text" value={this.state.password} onChange={this.handlePasswordChange}/>
-            <input type="submit"/>
+            <input className="btn-default" type="submit"/>
           </form>
         </div>
       )
