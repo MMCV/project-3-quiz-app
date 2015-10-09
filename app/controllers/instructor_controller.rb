@@ -3,16 +3,9 @@ require 'pry'
 class InstructorController < ApplicationController
 
   def show
-
-    if @current_user
-      @user_id = @current_user.id
-      @instructor = User.find(@user_id)
-      @instructor_cohort = @instructor.cohorts
-    else
-      redirect_to '/'
-    end
-
-
+    @user_id = current_user.id
+    @instructor = User.find(@user_id)
+    @instructor_cohort = @instructor.cohorts
   end
 
   def studentlist
