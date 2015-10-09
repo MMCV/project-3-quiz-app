@@ -13,7 +13,7 @@ class SessionsController < ApplicationController
 	  	if @user.type == 'Student'
 				redirect_to student_path(@user.id)
 			elsif @user.type == 'Instructor'
-				redirect_to instructor_path(@user.user_id)
+				redirect_to instructor_path(@user.id)
 			end
 	  else
 	  	redirect_to login_path
