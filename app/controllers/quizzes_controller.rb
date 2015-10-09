@@ -25,4 +25,15 @@ class QuizzesController < ApplicationController
   end
 
 
+  def current
+    @user = User.find(1)
+    @cohort = @user.cohorts
+    @time = Time.new
+    @active_quizzes = Quiz.where(:assigned_date => "#{@time.year}-#{@time.month}-#{@time.day}")
+    @quizzes = @active_quizzes.map{|e| e.name}
+
+    render component: 'CurrentQuiz', props: {name: @quiz}
+  end
+
+
 end

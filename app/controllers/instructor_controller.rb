@@ -4,9 +4,14 @@ class InstructorController < ApplicationController
 
   def show
 
-  @user_id = current_user.id
-  @instructor = User.find(@user_id)
-  @instructor_cohort = @instructor.cohorts
+    if @current_user
+      @user_id = @current_user.id
+      @instructor = User.find(@user_id)
+      @instructor_cohort = @instructor.cohorts
+    else
+      redirect_to '/'
+    end
+
 
   end
 

@@ -1,5 +1,5 @@
 class StudentsController < ApplicationController
-
+  before_filter :authorize
   def index
     @student_id = current_user.id
     @student = Student.find(@student_id)
