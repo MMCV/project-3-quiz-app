@@ -39,7 +39,7 @@ var Quiz = React.createClass({
 
 var NewQuiz = React.createClass({
   getInitialState: function(){
-    return {name: '', description: '', assigned_date: '', submit: 'false',  data: {}, quiz_id:0};
+    return {name: '', description: '', assigned_date: '', submit: 'false',  data: {}, quiz_id:0, cohort_id:0};
   },
 
   handleNameChange: function(event) {
@@ -53,7 +53,9 @@ var NewQuiz = React.createClass({
   handleDateChange: function(event) {
     this.setState({assigned_date:event.target.value})
   },
-
+  handleTypeChange: function(e) {
+    this.setState({cohort_id: e.target.value})
+  },
   handleSubmit: function(event) {
     event.preventDefault();
     var that = this;
@@ -64,7 +66,8 @@ var NewQuiz = React.createClass({
       data: {
         name: that.state.name,
         description: that.state.description,
-        assigned_date: date
+        assigned_date: date,
+        cohort_id: that.state.cohort_id
       },
       success: function(results, success) {
         that.setState({data:results})
@@ -77,7 +80,6 @@ var NewQuiz = React.createClass({
       }
     })
   },
-
   render: function() {
     if (this.state.submit == "true") {
       return(
@@ -86,14 +88,21 @@ var NewQuiz = React.createClass({
         </div>
       )
     } else {
+      var cohort_select = this.props.cohorts.map(function(cohort) {
+        return (
+          <option onSelect={this.handleTypeChange} value={cohort.id}>{cohort.name}</option>
+        )
+      })
       return (
         <div className="container">
           <h2> Create a Quiz </h2>
           <form onSubmit={this.handleSubmit}>
+            <select>
+              {cohort_select}
+            </select>
             <input type="text" value={this.state.name} onChange={this.handleNameChange} placeholder="Quiz Name"/>
             <input type="text" value={this.state.description} onChange={this.handleDescriptionChange} placeholder="Quiz Description"/>
             <input type="text" value={this.state.assigned_date} onChange={this.handleDateChange} placeholder="YYYY-MM-DD"/>
-
             <input type="submit" value="Create Quiz"/>
           </form>
         </div>
@@ -316,6 +325,7 @@ var CreateMultipleChoiceQuestion = React.createClass ({
   }
 })
 
+
 var CurrentQuiz = React.createClass({
   render: function() {
     return (
@@ -325,3 +335,10 @@ var CurrentQuiz = React.createClass({
     );
   }
 });
+
+
+var CohortSelect = React.createClass ({
+  render: function() {
+
+  }
+})

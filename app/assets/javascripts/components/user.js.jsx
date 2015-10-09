@@ -56,6 +56,7 @@ var UserNew = React.createClass({
   },
   handleSubmit: function(e) {
     e.preventDefault();
+    console.log(this.state.type)
     var that = this
     $.ajax({
       url: '/users',

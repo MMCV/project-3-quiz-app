@@ -3,12 +3,10 @@ require 'pry'
 class InstructorController < ApplicationController
 
   def show
-  @user_id = 32
-  @instructor = Instructor.find(@user_id)
-  @instructor_cohort = @instructor.cohorts
-
-
-  render component: 'ShowInstructor', props: {instructor: @instructor, cohorts: @instructor_cohort, students: @student_list}
+    @user_id = current_user.id
+    @instructor = Instructor.find(@user_id)
+    @instructor_cohort = @instructor.cohorts
+    render component: 'ShowInstructor', props: {instructor: @instructor, cohorts: @instructor_cohort, students: @student_list}
   end
 
   def studentlist
