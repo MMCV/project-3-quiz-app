@@ -42,8 +42,8 @@ var NewQuiz = React.createClass({
     var cohort_select = this.props.cohorts.map(function(cohort) {
       return (
         <option name="cohort" value={cohort.id}>{cohort.name}</option>
-      );
-    });
+      )
+    })
     return (
       <div className="container">
         <h2> Create a Quiz </h2>

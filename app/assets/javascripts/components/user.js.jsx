@@ -41,12 +41,12 @@ var UserNew = React.createClass({
           <input name="authenticity_token" type="hidden" value="token_value" />
           <div className="form-group">
             <label for="firstname">First Name</label>
-            <input type="text" name="firstname" className="form-control" />
+            <input type="text" name="first_name" className="form-control" />
           </div>
 
           <div className="form-group">
             <label for="lastname">Last Name</label>
-            <input type="text" name="lastname" className="form-control" />
+            <input type="text" name="last_name" className="form-control" />
           </div>
 
           <div className="form-group">
@@ -61,12 +61,12 @@ var UserNew = React.createClass({
 
           <div className="form-group">
             <label for="passconfirm">Password Confirm</label>
-            <input type="text" name="passconfirm" className="form-control" />
+            <input type="text" name="password_confirmation" className="form-control" />
           </div>
 
           <div className="form-group">
             <label for="usertype">Instructor or Student? </label>
-            <select name="usertype" className="form-control" defaultValue="Student" >
+            <select name="type" className="form-control" defaultValue="Student" >
               <option value="Student">Student</option>
               <option value="Instructor">Instructor</option>
             </select>
