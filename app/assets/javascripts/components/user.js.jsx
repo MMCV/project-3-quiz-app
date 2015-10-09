@@ -34,7 +34,7 @@ var User = React.createClass({
 
 var UserNew = React.createClass({
   getInitialState: function() {
-    return {first_name: '', last_name: '', email: '', password: '', password_confirmation: '', type: '', submit: 'false', data: {}}
+    return {first_name: '', last_name: '', email: '', password: '', password_confirmation: '', type: 'Student', submit: 'false', data: {}}
   },
   handleFnameChange: function(e) {
     this.setState({first_name:e.target.value})
@@ -52,6 +52,7 @@ var UserNew = React.createClass({
     this.setState({password_confirmation:e.target.value})
   },
   handleTypeChange: function(e) {
+    console.log(this.state.type)
     this.setState({type:e.target.value})
   },
   handleSubmit: function(e) {
@@ -120,9 +121,9 @@ var UserNew = React.createClass({
 
             <div className="form-group">
               <label for="usertype">Instructor or Student? </label>
-              <select name="usertype" className="form-control">
-                <option onSelect={this.handleTypeChange} value="Student">Student</option>
-                <option onSelect={this.handleTypeChange} value="Instructor">Instructor</option>
+              <select name="usertype" className="form-control" defaultValue="Student" onChange={this.handleTypeChange}>
+                <option value="Student">Student</option>
+                <option value="Instructor">Instructor</option>
               </select>
             </div>
 
@@ -158,35 +159,6 @@ var ShowUser = React.createClass ({
 })
 
 var UserLogin = React.createClass({
-  getInitialState: function() {
-    return {email:'', password: '', submit: 'false', data:{}}
-  },
-  handleLoginChange: function(e) {
-    this.setState({email: e.target.value})
-  },
-  handlePasswordChange: function(e) {
-    this.setState({password: e.target.value})
-  },
-  handleSubmit: function(e) {
-    e.preventDefault();
-    var that = this
-    $.ajax({
-      url: '/login_attempt',
-      method: 'POST',
-      data: {
-        email: that.state.email,
-        password: that.state.password
-      },
-      success: function(results, success, xhr) {
-        that.setState({data:results})
-        that.setState({submit:'true'})
-      },
-      error: function(xhr, error, status) {
-        console.log("error: " + error)
-        console.log("status " + status)
-      }
-    })
-  },
   render: function() {
     if (this.state.submit == "false") {
       return (
@@ -207,5 +179,6 @@ var UserLogin = React.createClass({
         </div>
       )
     }
+
   }
 })
