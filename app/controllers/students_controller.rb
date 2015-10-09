@@ -1,8 +1,7 @@
 class StudentsController < ApplicationController
   before_filter :authorize
   def index
-    @student_id = current_user.id
-    @student = Student.find(@student_id)
+    @student = Student.find(params[:id])
     @grades = @student.grades
     @grades_display = @grades.map{|e| e.grade * 100}
     @quizzes = Quiz.where(:id => @grades.map{|e| e.quiz_id})
@@ -15,4 +14,7 @@ class StudentsController < ApplicationController
     render component: 'StudentQuizIndex', props: {student: @student, quizzes: @quiz_grades}
   end
 
+  def student_take_quiz
+
+  end
 end

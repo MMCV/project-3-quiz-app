@@ -7,12 +7,12 @@ Rails.application.routes.draw do
   resources :solutions
 
   get '/style_guide' => 'style_guide#index'
-  get "/instructors" => "instructor#show"
+  get "/instructors/:id" => "instructor#show", as: :instructor
   get "/studentlists" => "instructor#studentlist"
   post '/login_attempt' => 'sessions#create'
   get '/login' => 'sessions#new'
   get '/logout' => 'sessions#destroy'
-  get '/student', to: 'students#index'
+  get '/students/:id', to: 'students#index', as: :student
   get '/quiz', to: 'quizzes#current'
 
   get "/quizlist" => 'instructor#quizlist'

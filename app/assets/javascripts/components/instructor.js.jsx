@@ -83,9 +83,11 @@ var StudentList = React.createClass({
 
 var Student = React.createClass({
   render:function(){
-    var StudentLink =
+    var studentId = this.props.student.id;
+    var studentLink = '/student/'+studentId;
+
     return(
-      <div><a href="#">{this.props.student.first_name} {this.props.student.last_name} </a></div>
+      <div><a href={studentLink}>{this.props.student.first_name} {this.props.student.last_name} </a></div>
     )
   }
 })
