@@ -34,7 +34,7 @@ var User = React.createClass({
 
 var UserNew = React.createClass({
   getInitialState: function() {
-    return {first_name: '', last_name: '', email: '', password: '', password_confirmation: '', type: '', submit: 'false', data: {}}
+    return {first_name: '', last_name: '', email: '', password: '', password_confirmation: '', type: 'Student', submit: 'false', data: {}}
   },
   handleFnameChange: function(e) {
     this.setState({first_name:e.target.value})
@@ -52,6 +52,7 @@ var UserNew = React.createClass({
     this.setState({password_confirmation:e.target.value})
   },
   handleTypeChange: function(e) {
+    console.log(this.state.type)
     this.setState({type:e.target.value})
   },
   handleSubmit: function(e) {
@@ -120,9 +121,9 @@ var UserNew = React.createClass({
 
             <div className="form-group">
               <label for="usertype">Instructor or Student? </label>
-              <select name="usertype" className="form-control">
-                <option onSelect={this.handleTypeChange} value="Student">Student</option>
-                <option onSelect={this.handleTypeChange} value="Instructor">Instructor</option>
+              <select name="usertype" className="form-control" defaultValue="Student" onChange={this.handleTypeChange}>
+                <option value="Student">Student</option>
+                <option value="Instructor">Instructor</option>
               </select>
             </div>
 
