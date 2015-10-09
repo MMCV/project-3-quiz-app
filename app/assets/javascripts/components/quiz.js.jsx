@@ -336,9 +336,3 @@ var CurrentQuiz = React.createClass({
   }
 });
 
-
-var CohortSelect = React.createClass ({
-  render: function() {
-
-  }
-})
