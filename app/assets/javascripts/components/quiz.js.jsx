@@ -286,7 +286,6 @@ var CreateMultipleChoiceQuestion = React.createClass ({
   }
 })
 
-
 var CurrentQuiz = React.createClass({
   render: function() {
     return (
@@ -296,4 +295,3 @@ var CurrentQuiz = React.createClass({
     );
   }
 });
-
