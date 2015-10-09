@@ -1,4 +1,3 @@
-require 'pry'
 class UsersController < ApplicationController
 
   def index
@@ -12,7 +11,6 @@ class UsersController < ApplicationController
   end
 
   def create
-    binding.pry
     if params[:type]=="Student"
     	user = Student.new(first_name: params[:first_name], last_name: params[:last_name], email: params[:email], password: params[:password], password_confirmation: params[:password_confirmation])
     else

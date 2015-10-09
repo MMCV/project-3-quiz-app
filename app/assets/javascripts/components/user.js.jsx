@@ -159,54 +159,17 @@ var ShowUser = React.createClass ({
 })
 
 var UserLogin = React.createClass({
-  getInitialState: function() {
-    return {email:'', password: '', submit: 'false', data:{}}
-  },
-  handleLoginChange: function(e) {
-    this.setState({email: e.target.value})
-  },
-  handlePasswordChange: function(e) {
-    this.setState({password: e.target.value})
-  },
-  handleSubmit: function(e) {
-    e.preventDefault();
-    var that = this
-    $.ajax({
-      url: '/login_attempt',
-      method: 'POST',
-      data: {
-        email: that.state.email,
-        password: that.state.password
-      },
-      success: function(results, success, xhr) {
-        that.setState({data:results})
-        that.setState({submit:'true'})
-      },
-      error: function(xhr, error, status) {
-        console.log("error: " + error)
-        console.log("status " + status)
-      }
-    })
-  },
   render: function() {
-    if (this.state.submit == "false") {
-      return (
-        <div>
-          <h2>Log in please</h2>
-          <form onSubmit={this.handleSubmit}>
-            <input type="text" value={this.state.email} onChange={this.handleLoginChange}/>
-            <input type="text" value={this.state.password} onChange={this.handlePasswordChange}/>
-            <input className="btn-default" type="submit"/>
-          </form>
-        </div>
-      )
-    } else {
-      console.log(this.state.data)
-      return (
-        <div>
-          <ShowUser user={this.state.data} />
-        </div>
-      )
-    }
+    return (
+      <div>
+        <h2>Log in please</h2>
+        <form method="post" action="/login_attempt">
+          <input name="authenticity_token" type="hidden" value="token_value" />
+          <input type="text" name="email" />
+          <input type="text" name="password" />
+          <input className="btn-default" type="submit" />
+        </form>
+      </div>
+    )
   }
 })
