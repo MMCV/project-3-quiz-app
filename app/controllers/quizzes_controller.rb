@@ -13,14 +13,17 @@ class QuizzesController < ApplicationController
 
   def create
     quiz = Quiz.create(name: params[:name], description: params[:description], assigned_date: params[:assigned_date])
-    quiz.cohorts << params[:cohort]
-    render json: quiz
+    cohort = Cohort.find(params[:cohort].to_i)
+    quiz.cohorts << cohort
+    render component: 'CreateQuestionTemplate', props: {quiz_id: quiz.id }
   end
 
   def show
     quiz = Quiz.find(params[:id])
-    render component: 'ShowQuiz', props: { quiz: quiz}
+    questions = quiz.questions
+    render component: 'ShowQuiz', props: { quiz: quiz, questions: questions }
   end
+
 
   def current
     @user = User.find(1)
@@ -28,8 +31,9 @@ class QuizzesController < ApplicationController
     @time = Time.new
     @active_quizzes = Quiz.where(:assigned_date => "#{@time.year}-#{@time.month}-#{@time.day}")
     @quizzes = @active_quizzes.map{|e| e.name}
-  
+
     render component: 'CurrentQuiz', props: {name: @quiz}
   end
+
 
 end

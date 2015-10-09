@@ -33,108 +33,52 @@ var User = React.createClass({
 
 
 var UserNew = React.createClass({
-  getInitialState: function() {
-    return {first_name: '', last_name: '', email: '', password: '', password_confirmation: '', type: 'Student', submit: 'false', data: {}}
-  },
-  handleFnameChange: function(e) {
-    this.setState({first_name:e.target.value})
-  },
-  handleLnameChange: function(e) {
-    this.setState({last_name:e.target.value})
-  },
-  handleEmailChange: function(e) {
-    this.setState({email:e.target.value})
-  },
-  handlePwordChange: function(e) {
-    this.setState({password:e.target.value})
-  },
-  handleCPwordChange: function(e) {
-    this.setState({password_confirmation:e.target.value})
-  },
-  handleTypeChange: function(e) {
-    console.log(this.state.type)
-    this.setState({type:e.target.value})
-  },
-  handleSubmit: function(e) {
-    e.preventDefault();
-    console.log(this.state.type)
-    var that = this
-    $.ajax({
-      url: '/users',
-      method: 'POST',
-      data: {
-        first_name: that.state.first_name,
-        last_name: that.state.last_name,
-        email: that.state.email,
-        password: that.state.password,
-        password_confirmation: that.state.password_confirmation,
-        type: that.state.type
-      },
-      success: function(results, success, xhr) {
-        that.setState({data:results})
-        that.setState({submit:'true'})
-      },
-      error: function(xhr, error, status) {
-        console.log(that.state)
-        console.log('error: ' + error)
-        console.log(': ' + status)
-      }
-    })
-  },
   render: function() {
-    if ( this.state.submit == "true") {
-      console.log(this.state.data)
-      return (
-        <div className="container">
-          <ShowUser user={this.state.data} />
-        </div>
-      )
-    } else {
-      return (
-        <div className="container">
-          <h3>Create a new user</h3>
-          <form role="form" onSubmit={this.handleSubmit}>
-            <div className="form-group">
-              <label for="firstname">First Name</label>
-              <input type="text" name="firstname" className="form-control" value={this.state.first_name} onChange={this.handleFnameChange}/>
-            </div>
+    return (
+      <div className="container">
+        <h3>Create a new user</h3>
+        <form role="form" method="post" action="/users">
+          <input name="authenticity_token" type="hidden" value="token_value" />
+          <div className="form-group">
+            <label for="firstname">First Name</label>
+            <input type="text" name="firstname" className="form-control" />
+          </div>
 
-            <div className="form-group">
-              <label for="lastname">Last Name</label>
-              <input type="text" name="lastname" className="form-control" value={this.state.last_name} onChange={this.handleLnameChange}/>
-            </div>
+          <div className="form-group">
+            <label for="lastname">Last Name</label>
+            <input type="text" name="lastname" className="form-control" />
+          </div>
 
-            <div className="form-group">
-              <label for="email">Email</label>
-              <input type="text" name="email" className="form-control" value={this.state.email} onChange={this.handleEmailChange}/>
-            </div>
+          <div className="form-group">
+            <label for="email">Email</label>
+            <input type="text" name="email" className="form-control" />
+          </div>
 
-            <div className="form-group">
-              <label for="password">Password</label>
-              <input type="text" name="password" className="form-control" value={this.state.password} onChange={this.handlePwordChange}/>
-            </div>
+          <div className="form-group">
+            <label for="password">Password</label>
+            <input type="text" name="password" className="form-control" />
+          </div>
 
-            <div className="form-group">
-              <label for="passconfirm">Password Confirm</label>
-              <input type="text" name="passconfirm" className="form-control" value={this.state.password_confirmation} onChange={this.handleCPwordChange}/>
-            </div>
+          <div className="form-group">
+            <label for="passconfirm">Password Confirm</label>
+            <input type="text" name="passconfirm" className="form-control" />
+          </div>
 
-            <div className="form-group">
-              <label for="usertype">Instructor or Student? </label>
-              <select name="usertype" className="form-control" defaultValue="Student" onChange={this.handleTypeChange}>
-                <option value="Student">Student</option>
-                <option value="Instructor">Instructor</option>
-              </select>
-            </div>
+          <div className="form-group">
+            <label for="usertype">Instructor or Student? </label>
+            <select name="usertype" className="form-control" defaultValue="Student" >
+              <option value="Student">Student</option>
+              <option value="Instructor">Instructor</option>
+            </select>
+          </div>
 
-            <div className="form-group">
-              <input type="submit" value="Sign Up"/>
-            </div>
+          <div className="form-group">
+            <input type="submit" value="Sign Up"/>
+          </div>
 
-          </form>
-        </div>
-      )
-    }
+        </form>
+      </div>
+    )
   }
 })
 

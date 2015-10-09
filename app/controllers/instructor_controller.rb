@@ -3,11 +3,9 @@ require 'pry'
 class InstructorController < ApplicationController
 
   def show
-
-  @user_id = 32
-  @instructor = User.find(@user_id)
-  @instructor_cohort = @instructor.cohorts
-
+    @user_id = current_user.id
+    @instructor = User.find(@user_id)
+    @instructor_cohort = @instructor.cohorts
   end
 
   def studentlist
