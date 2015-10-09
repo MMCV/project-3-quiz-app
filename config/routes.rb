@@ -13,6 +13,7 @@ Rails.application.routes.draw do
   get '/login' => 'sessions#new'
   get '/logout' => 'sessions#destroy'
   get '/student', to: 'students#index'
+  get '/quiz', to: 'quizzes#current'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
