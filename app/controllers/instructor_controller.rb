@@ -4,10 +4,9 @@ class InstructorController < ApplicationController
   before_filter :authorize
 
   def show
-      @user_id = current_user.id
-      @instructor = User.find(@user_id)
-      @instructor_cohort = @instructor.cohorts
-
+    @user_id = current_user.id
+    @instructor = User.find(@user_id)
+    @instructor_cohort = @instructor.cohorts
   end
 
   def studentlist

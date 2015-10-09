@@ -14,10 +14,6 @@ class ApplicationController < ActionController::Base
   def authorize
     if !current_user
       render component: 'UserLogin'
-    elsif current_user.type == "Student"
-        redirect_to '/student'
-    elsif current_user.type =='Instructor'
-        redirect_to '/instructors'
     end
   end
 
