@@ -11,7 +11,16 @@ class StudentsController < ApplicationController
       @quiz_grades << {quiz: @quizzes[x], grade: @grades_display[x]}
     end
 
-    render component: 'StudentQuizIndex', props: {student: @student, quizzes: @quiz_grades}
+    if current_user.type == 'Student'
+      if current_user.id == params[:id].to_i
+        render component: 'StudentQuizIndex', props: {student: @student, quizzes: @quiz_grades}
+      else
+        render component: 'UnauthorizedStudentAccess'
+      end
+    elsif current_user.type == 'Instructor'
+      render component: ''
+    end
+
   end
 
   def student_take_quiz

@@ -45,3 +45,11 @@ var StudentQuiz = React.createClass({
     );
   }
 });
+
+var UnauthorizedStudentAccess = React.createClass({
+  render: function() {
+    return (
+      <h1>You are not authorized to view this page!</h1>
+    );
+  }
+});
