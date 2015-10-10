@@ -5,8 +5,10 @@
     </div>
     <% if logged_in? %>
       <button type="button" onclick="location.href='/logout';" class="btn btn-default navbar-btn navbar-right">Log out</button>
+      <p class="navbar-text">You are logged in as <%= current_user.first_name %> <%= current_user.last_name %></p>
     <% else %>
-      <button type="button" onclick="location.href='/login';" class="btn btn-default navbar-btn navbar-right">Sign in</button>
+      <button type="button" onclick="location.href='/login';" id="sign-in" class="btn btn-default navbar-btn navbar-right sign-in-button">Sign in</button>
+      <button type="button" onclick="location.href='/users/new';" class="btn btn-default navbar-btn navbar-right">Sign up</button>
     <% end %>
   </div>
 </nav>

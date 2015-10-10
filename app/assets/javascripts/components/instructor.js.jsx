@@ -5,6 +5,7 @@ var ShowInstructor = React.createClass({
       var cohortlistNodes = this.props.cohorts.map(function(cohort){
         return(
           <div className="container">
+            <a href="/instructorsignup">Sign up for a cohort</a>
             <h2>{cohort.name} Students: </h2>
             <StudentBox cohort={cohort.name}/>
             <h2>{cohort.name} Quizzes: </h2>
@@ -83,8 +84,11 @@ var StudentList = React.createClass({
 
 var Student = React.createClass({
   render:function(){
+    var studentId = this.props.student.id;
+    var studentLink = '/student/'+studentId;
+
     return(
-      <div><a href="#">{this.props.student.first_name} {this.props.student.last_name} </a></div>
+      <div><a href={studentLink}>{this.props.student.first_name} {this.props.student.last_name} </a></div>
     )
   }
 })
@@ -128,7 +132,7 @@ var InstructorQuizList = React.createClass({
     if (this.props.data){
       var QuizNodes = this.props.data.map(function(quiz){
         return(
-          <InstructorQuiz quiz={quiz.name}/>
+          <InstructorQuiz quiz={quiz}/>
         )
       });
     }else{
@@ -144,9 +148,10 @@ var InstructorQuizList = React.createClass({
 
 var InstructorQuiz = React.createClass({
   render:function(){
-    console.log(this.props.quiz.name)
+    console.log(this.props.quiz.id);
+    var quizLink = "/quizzes/"+(this.props.quiz.id)
     return(
-      <div><a href="#">{this.props.quiz}</a></div>
+      <div><a href={quizLink}>{this.props.quiz.name}</a></div>
     )
   }
 })
