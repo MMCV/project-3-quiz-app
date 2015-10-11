@@ -21,13 +21,13 @@ class QuizzesController < ApplicationController
   end
 
   def current
-    @user = User.find(1)
+    @user = User.find(current_user.id)
     @cohorts = @user.cohorts
     @cohort_quizzes = @cohorts.map{|e| e.quizzes}
     @date = Time.new
     @current_date = "#{@date.year}-#{@date.month}-#{@date.day}"
-    @active_quizzes = Quiz.find_by(:assigned_date => @current_date)
-    @quiz = @cohort_quizzes.map{|e| e.where(:id => @active_quizzes.id)}
+    @active_quiz = Quiz.find_by(:assigned_date => @current_date)
+    @quiz = @cohort_quizzes.map{|e| e.where(:id => @active_quiz.id)}
 
     render component: 'CurrentQuiz', props: {quiz: @quiz}
   end
