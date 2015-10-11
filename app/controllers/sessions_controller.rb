@@ -1,6 +1,14 @@
 class SessionsController < ApplicationController
 	def new
+		if current_user
+			if current_user.type == "Student"
+				redirect_to "/students/#{current_user.id}"
+			elsif current_user.type == "Instructor"
+				redirect_to "/instructors/#{current_user.id}"
+			end
+		else
 		render component: 'UserLogin'
+		end
 	end
 
 	def create
