@@ -12,11 +12,7 @@ Rails.application.routes.draw do
   post '/login_attempt' => 'sessions#create'
   get '/login' => 'sessions#new'
   get '/logout' => 'sessions#destroy'
-<<<<<<< HEAD
-  get '/student', to: 'students#index'
-=======
   get '/students/:id', to: 'students#index', as: :student
->>>>>>> master
   get '/quiz', to: 'quizzes#current'
 
   get "/quizlist" => 'instructor#quizlist'
