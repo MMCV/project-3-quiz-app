@@ -53,3 +53,40 @@ var UnauthorizedStudentAccess = React.createClass({
     );
   }
 });
+
+var InstructorStudentQuizIndex = React.createClass({
+  render: function() {
+    return (
+      <div className="studentContainer">
+        <h2>Quizzes {this.props.student.first_name} {this.props.student.last_name} has taken:</h2>
+        <InstructorStudentQuizList quizzes={this.props.quizzes}/>
+      </div>
+    );
+  }
+});
+
+
+var InstructorStudentQuizList = React.createClass({
+  render: function() {
+    var studentQuizNodes = this.props.quizzes.map(function(quiz){
+      return(
+        <InstructorStudentQuiz quizName = {quiz.quiz.name} gradeValue = {quiz.grade}/>
+      );
+    });
+    return (
+      <div className="quizList">
+        {studentQuizNodes}
+      </div>
+    );
+  }
+});
+
+var InstructorStudentQuiz = React.createClass({
+  render: function() {
+    return (
+      <div className="studentQuiz">
+        Quiz: {this.props.quizName} Score :{this.props.gradeValue}%
+      </div>
+    );
+  }
+});

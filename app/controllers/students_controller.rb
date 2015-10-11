@@ -18,7 +18,7 @@ class StudentsController < ApplicationController
         render component: 'UnauthorizedStudentAccess'
       end
     elsif current_user.type == 'Instructor'
-      render component: ''
+      render component: 'InstructorStudentQuizIndex', props: {student: @student, quizzes: @quiz_grades}
     end
 
   end
