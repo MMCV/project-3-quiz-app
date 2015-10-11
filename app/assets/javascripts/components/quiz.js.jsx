@@ -38,77 +38,45 @@ var Quiz = React.createClass({
 })
 
 var NewQuiz = React.createClass({
-  getInitialState: function(){
-    return {name: '', description: '', assigned_date: '', submit: 'false',  data: {}, quiz_id:0};
-  },
-
-  handleNameChange: function(event) {
-    this.setState({name:event.target.value})
-  },
-
-  handleDescriptionChange: function(event) {
-    this.setState({description:event.target.value})
-  },
-
-  handleDateChange: function(event) {
-    this.setState({assigned_date:event.target.value})
-  },
-
-  handleSubmit: function(event) {
-    event.preventDefault();
-    var that = this;
-    var date = new Date(this.state.assigned_date);
-    $.ajax({
-      url: '/quizzes',
-      method: 'POST',
-      data: {
-        name: that.state.name,
-        description: that.state.description,
-        assigned_date: date
-      },
-      success: function(results, success) {
-        that.setState({data:results})
-        that.setState({submit:'true'})
-        that.setState({quiz_id: results.id})
-      },
-      error: function(xhr, error, status) {
-        console.log(that.state)
-        console.log('error : '+ error)
-      }
-    })
-  },
-
   render: function() {
-    if (this.state.submit == "true") {
-      return(
-        <div className="container">
-          <CreateQuestionTemplate quiz_id={this.state.quiz_id} />
-        </div>
-      )
-    } else {
+    var cohort_select = this.props.cohorts.map(function(cohort) {
       return (
-        <div className="container">
-          <h2> Create a Quiz </h2>
-          <form onSubmit={this.handleSubmit}>
-            <input type="text" value={this.state.name} onChange={this.handleNameChange} placeholder="Quiz Name"/>
-            <input type="text" value={this.state.description} onChange={this.handleDescriptionChange} placeholder="Quiz Description"/>
-            <input type="text" value={this.state.assigned_date} onChange={this.handleDateChange} placeholder="YYYY-MM-DD"/>
-
-            <input type="submit" value="Create Quiz"/>
-          </form>
-        </div>
+        <option name="cohort" value={cohort.id}>{cohort.name}</option>
       )
-    }
+    })
+    return (
+      <div className="container">
+        <h2> Create a Quiz </h2>
+        <form method="post" action="/quizzes">
+          <input name="authenticity_token" type="hidden" value="token_value" />
+          <select name="cohort">
+            {cohort_select}
+          </select>
+          <input type="text" name="name" placeholder="Quiz Name"/>
+          <input type="text" name="description" placeholder="Quiz Description"/>
+          <input type="text" name="assigned_date" placeholder="YYYY-MM-DD"/>
+          <input type="submit" value="Create Quiz"/>
+        </form>
+      </div>
+    )
   }
 });
 
 var ShowQuiz = React.createClass ({
   render: function() {
+    var questions = this.props.questions.map(function(question) {
+      return (
+        <h4>{question.question_text}</h4>
+      )
+    })
     return (
       <div className="container">
         <h3> {this.props.quiz.name} </h3>
         <p> {this.props.quiz.description} </p>
         <p> {this.props.quiz.assigned_date} </p>
+
+        <h4>Questions</h4>
+        <div>{questions}</div>
       </div>
     )
   }
@@ -126,6 +94,7 @@ var CreateQuestionTemplate = React.createClass({
     this.setState({type: e.target.value})
   },
   render: function() {
+    console.log("load template: " + this.props.quiz_id)
     return (
       <div>
         <select defaultValue="" onChange={this.handleQuestionType}>
@@ -147,11 +116,11 @@ var AddQuestionField = React.createClass({
       console.log(that.props.type)
       if (question == "text") {
         return (
-          <CreateTextQuestion type={that.props.type} />
+          <CreateTextQuestion type={that.props.type} quiz_id={that.props.quiz_id} />
         )
       } else {
         return (
-          <CreateMultipleChoiceQuestion type={that.props.type} />
+          <CreateMultipleChoiceQuestion type={that.props.type} quiz_id={that.props.quiz_id} />
         )
       }
     })
@@ -176,6 +145,7 @@ var CreateTextQuestion = React.createClass ({
   handleSubmit: function(e) {
     e.preventDefault();
     var that = this
+    console.log(that.props.quiz_id)
     $.ajax({
       url: '/questions',
       method: 'POST',
@@ -183,7 +153,7 @@ var CreateTextQuestion = React.createClass ({
         question_text: that.state.question_value,
         question_answer: '',
         question_type: that.props.type,
-        quiz_id: 1
+        quiz_id: that.props.quiz_id
       },
       success: function(data) {
         that.setState({status:'submitted'})
@@ -249,14 +219,14 @@ var CreateMultipleChoiceQuestion = React.createClass ({
   handleSubmit: function(e) {
     e.preventDefault();
     var that = this
-    console.log(that.props.type)
+    console.log(that.props.quiz_id)
     $.ajax({
       url: '/questions',
       method: 'POST',
       data: {
         question_text: that.state.question_value,
         question_answer: that.state.answer,
-        quiz_id: 1,
+        quiz_id: that.props.quiz_id,
         answer_1: that.state.answer_1,
         answer_2: that.state.answer_2,
         answer_3: that.state.answer_3,
@@ -326,3 +296,66 @@ var CurrentQuiz = React.createClass({
     );
   }
 });
+
+
+var TakeAQuizTemplate = React.createClass ({
+  render: function() {
+    var questions = this.props.questions.map(function(question) {
+      if (question.type == "text") {
+        return (
+          <ShortAnswerQuestion question={question} />
+        )
+      } else {
+        return (
+          <MultipleChoiceQuestion question={question} />
+        )
+      }
+    })
+    return (
+      <div className="container">
+        <form action="" method="post">
+          <input name="authenticity_token" type="hidden" value="token_value" />
+          {questions}
+        </form>
+      </div>
+    )
+  }
+})
+
+
+var ShortAnswerQuestion = React.createClass({
+  render: function() {
+    return (
+      <div className="form-group">
+        <label>{this.props.question.question_text}</label>
+        <input type="textarea" name={this.props.question.id} className="form-control" />
+      </div>
+    )
+  }
+})
+
+var MultipleChoiceQuestion = React.createClass({
+  render: function() {
+    return (
+      <div>
+        <div className="form-group">
+          <label>{this.props.question.answer_1}</label>
+          <input type="radio" name={this.props.question.id} value="A">A</input>
+        </div>
+        <div className="form-group">
+          <label>{this.props.question.answer_2}</label>
+          <input type="radio" name={this.props.question.id} value="B">B</input>
+        </div>
+        <div className="form-group">
+          <label>{this.props.question.answer_3}</label>
+          <input type="radio" name={this.props.question.id} value="C">C</input>
+        </div>
+        <div className="form-group">
+          <label>{this.props.question.answer_4}</label>
+          <input type="radio" name={this.props.question.id} value="D">D</input>
+        </div>
+      </div>
+    )
+  }
+})
+>>>>>>> master

@@ -75,3 +75,51 @@ var NewCohort = React.createClass ({
 		}
 	}
 })
+
+var CohortStudentSignup = React.createClass ({
+	render: function() {
+		console.log(this.props.cohorts)
+		var cohort_dropdown = this.props.cohorts.map(function(cohort) {
+			return (
+				 <option name="cohort">{cohort.name}</option>
+			)
+		})
+		return (
+			<div className="container"> 
+				<h3>Sign up for a cohort</h3>
+				<form method="post" action="/student_signuppost">
+				  <input name="authenticity_token" type="hidden" value="token_value" />
+				  <input list="cohorts" name="cohort" />
+					<datalist id="cohorts">
+						{cohort_dropdown}
+				  </datalist>
+	  			<input type="submit" />
+	  		</form>
+  		</div>
+		)
+	}
+})
+
+var CohortInstructorSignup = React.createClass ({
+	render: function() {
+		console.log(this.props.cohorts)
+		var cohort_dropdown = this.props.cohorts.map(function(cohort) {
+			return (
+				 <option name="cohort">{cohort.name}</option>
+			)
+		})
+		return (
+			<div className="container"> 
+				<h3>Sign up for a cohort</h3>
+				<form method="post" action="/instructor_signuppost">
+				  <input name="authenticity_token" type="hidden" value="token_value" />
+				  <input list="cohorts" name="cohort" />
+					<datalist id="cohorts">
+						{cohort_dropdown}
+				  </datalist>
+	  			<input type="submit" />
+	  		</form>
+  		</div>
+		)
+	}
+})

@@ -1,19 +1,15 @@
 require 'pry'
 
 class InstructorController < ApplicationController
+  before_filter :authorize
 
   def show
-  @user_id = 32
-  @instructor = Instructor.find(@user_id)
-  @instructor_cohort = @instructor.cohorts
-
-
-  render component: 'ShowInstructor', props: {instructor: @instructor, cohorts: @instructor_cohort, students: @student_list}
+    @user_id = current_user.id
+    @instructor = User.find(@user_id)
+    @instructor_cohort = @instructor.cohorts
   end
 
   def studentlist
-    # @cohort = Instructor.find(@user_id).cohorts.find(params[:id])
-    # @student_list = @cohort.users.where(:type=>'Student')
 
     @cohort = Cohort.find_by(name: params[:name])
     @student_list = @cohort.users.where(:type=>'Student')
@@ -21,10 +17,12 @@ class InstructorController < ApplicationController
     render json: @student_list
   end
 
+  def quizlist
+    @cohort = Cohort.find_by(name: params[:name])
+    @quiz_list = @cohort.quizzes
 
+    render json: @quiz_list
 
-
-
-
+  end
 
 end

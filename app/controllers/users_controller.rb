@@ -1,5 +1,5 @@
+require 'pry'
 class UsersController < ApplicationController
-
   def index
     @students = Student.all
     @instructors = Instructor.all
@@ -11,16 +11,24 @@ class UsersController < ApplicationController
   end
 
   def create
-  	user = User.new(first_name: params[:first_name], last_name: params[:last_name], email: params[:email], password: params[:password], password_confirmation: params[:password_confirmation], type: params[:type])
-    if user.save
-      session[:user_id] = user.id
-  	  render json: user
+    if params[:type]=="Student"
+    	@student = Student.new(first_name: params[:first_name], last_name: params[:last_name], email: params[:email], password: params[:password], password_confirmation: params[:password_confirmation])
+      if @student.save
+        session[:user_id] = @student.id
+        redirect_to student_path(@student)
+      end
+    else
+      @instructor = Instructor.new(first_name: params[:first_name], last_name: params[:last_name], email: params[:email], password: params[:password], password_confirmation: params[:password_confirmation])
+      if @instructor.save
+        session[:user_id] = @instructor.id
+        redirect_to instructor_path(@instructor)
+      end
     end
   end
 
   def show
-  	user = User.find(params[:id])
-		render component: 'ShowUser', props: { user: user }
+  	@user = User.find(params[:id])
+		render component: 'ShowUser', props: { user: @user }
   end
 
 end

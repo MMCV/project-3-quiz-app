@@ -1,3 +1,4 @@
+require 'pry'
 class QuizzesController < ApplicationController
 
   def index
@@ -7,18 +8,25 @@ class QuizzesController < ApplicationController
 
   def new
     # render component: 'Question_New' <-- Question New component
-    render component: 'NewQuiz'
+    @cohorts = current_user.cohorts
+    render component: 'NewQuiz', props: { cohorts: @cohorts }
   end
 
   def create
-    quiz = Quiz.create(name: params[:name], description: params[:description], assigned_date: params[:assigned_date])
-    render json: quiz
+    @quiz = Quiz.new(name: params[:name], description: params[:description], assigned_date: params[:assigned_date])
+    @cohort = Cohort.find(params[:cohort].to_i)
+    if @quiz.save
+      @quiz.cohorts << @cohort
+      render component: 'CreateQuestionTemplate', props: {quiz_id: @quiz.id }
+    end
   end
 
   def show
-    quiz = Quiz.find(params[:id])
-    render component: 'ShowQuiz', props: { quiz: quiz}
+    @quiz = Quiz.find(params[:id])
+    @questions = @quiz.questions.order(:id)
+    render component: 'ShowQuiz', props: { quiz: @quiz, questions: @questions }
   end
+
 
   def current
     @user = User.find(current_user.id)
@@ -31,4 +39,5 @@ class QuizzesController < ApplicationController
     @name = @quiz.name.capitalize
     render component: 'CurrentQuiz', props: {quiz: @quiz, name: @name}
   end
+
 end

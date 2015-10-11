@@ -6,20 +6,32 @@ Rails.application.routes.draw do
   resources :quizzes
   resources :solutions
 
-
-  get "/instructors" => "instructor#show"
+  get '/style_guide' => 'style_guide#index'
+  get "/instructors/:id" => "instructor#show", as: :instructor
   get "/studentlists" => "instructor#studentlist"
   post '/login_attempt' => 'sessions#create'
   get '/login' => 'sessions#new'
   get '/logout' => 'sessions#destroy'
+<<<<<<< HEAD
   get '/student', to: 'students#index'
+=======
+  get '/students/:id', to: 'students#index', as: :student
+>>>>>>> master
   get '/quiz', to: 'quizzes#current'
 
+  get "/quizlist" => 'instructor#quizlist'
+  get '/studentsignup', to: 'cohorts#student_signup'
+  post '/student_signuppost', to: 'cohorts#student_signuppost'
+  get '/instructorsignup', to: 'cohorts#instructor_signup'
+  post '/instructor_signuppost', to: 'cohorts#instructor_signuppost'
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
   # You can have the root of your site routed with "root"
-  # root 'welcome#index'
+  root 'sessions#new'
+
+  get '/lets_take_a_quiz/:id' => 'students#student_take_quiz'
+  post '/lets_take_a_quiz_submit' => 'students#submit_the_quiz'
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
