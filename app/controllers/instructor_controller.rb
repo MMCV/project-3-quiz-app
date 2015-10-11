@@ -18,10 +18,10 @@ class InstructorController < ApplicationController
   end
 
   def quizlist
-    @cohort = Cohort.find_by(name: params[:name])
-    @quiz_list = @cohort.quizzes
+      @cohort = Cohort.find_by(name: params[:name])
+      @quiz_list = @cohort.quizzes
 
-    render json: @quiz_list
+      render json: @quiz_list
 
   end
 
