@@ -320,7 +320,7 @@ var CurrentQuiz = React.createClass({
   render: function() {
     return (
       <div className="currentQuiz">
-        {this.props.quiz}
+        <a href="#">{this.props.name}</a>
       </div>
     );
   }
