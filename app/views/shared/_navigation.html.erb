@@ -1,7 +1,15 @@
 <nav class="navbar navbar-default" role="navigation">
   <div class="container">
     <div class="navbar-header">
-      <a class="navbar-brand" href="/">HOME</a>
+      <% if logged_in? %>
+        <% if current_user.type == 'Student' %>
+        <a class="navbar-brand" href= "students/<%= current_user.id%>" > HOME</a>
+        <% elsif current_user.type == "Instructor" %>
+          <a class="navbar-brand" href= "instructors/<%= current_user.id%>" > HOME</a>
+        <% end %>
+      <% else %>
+        <a class="navbar-brand" href="/">HOME</a>
+      <% end %>
     </div>
     <% if logged_in? %>
       <button type="button" onclick="location.href='/logout';" class="btn btn-default navbar-btn navbar-right">Log out</button>
