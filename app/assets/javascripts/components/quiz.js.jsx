@@ -318,9 +318,10 @@ var CreateMultipleChoiceQuestion = React.createClass ({
 
 var CurrentQuiz = React.createClass({
   render: function() {
+    var quizLink = '/lets_take_a_quiz/'+{this.props.quiz.id}
     return (
       <div className="currentQuiz">
-        <a href="#">{this.props.name}</a>
+        <a href={quizLink}>{this.props.name}</a>
       </div>
     );
   }
