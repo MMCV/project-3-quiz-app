@@ -302,7 +302,7 @@ var TakeAQuizTemplate = React.createClass ({
     var questions = this.props.questions.map(function(question) {
       if (question.type == "text") {
         return (
-          <ShortAnswerQuestion question={questions} />
+          <ShortAnswerQuestion question={question} />
         )
       } else {
         return (
@@ -333,7 +333,7 @@ var ShortAnswerQuestion = React.createClass({
   }
 })
 
-var CreateMultipleChoiceQuestion = React.createClass({
+var MultipleChoiceQuestion = React.createClass({
   render: function() {
     return (
       <div>
