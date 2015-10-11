@@ -3,9 +3,9 @@
     <div class="navbar-header">
       <% if logged_in? %>
         <% if current_user.type == 'Student' %>
-        <a class="navbar-brand" href= "students/<%= current_user.id%>" > HOME</a>
+        <a class="navbar-brand" href= "/students/<%= current_user.id%>" > HOME</a>
         <% elsif current_user.type == "Instructor" %>
-          <a class="navbar-brand" href= "instructors/<%= current_user.id%>" > HOME</a>
+          <a class="navbar-brand" href= "/instructors/<%= current_user.id%>" > HOME</a>
         <% end %>
       <% else %>
         <a class="navbar-brand" href="/">HOME</a>
