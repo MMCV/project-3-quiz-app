@@ -24,6 +24,18 @@ class StudentsController < ApplicationController
   end
 
   def student_take_quiz
+    # Get the quiz they click on
+    @quiz = Quiz.find(params[:id])
+    # Grab the questions for that quiz to pass to the component
+    @questions = @quiz.questions
+    render component: 'TakeAQuizTemplate', props: {quiz: @quiz, questions: @questions}
+  end
 
+  def submit_the_quiz
+    @student = Student.find(session[:user_id])
+    params.each do |q_id, answer|
+      @solution = Solution.create(student_answer: answer, user_id: @student.id, question_id: q_id)
+    end
+    redirect_to student_path(@student.id)
   end
 end

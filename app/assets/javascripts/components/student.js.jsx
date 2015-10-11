@@ -1,5 +1,6 @@
 var StudentQuizIndex = React.createClass({
   render: function() {
+      console.log(this.props.quizzes)
     return (
       <div className="studentContainer">
         <StudentName student={this.props.student}/>
@@ -25,7 +26,7 @@ var StudentQuizList = React.createClass({
   render: function() {
     var studentQuizNodes = this.props.quizzes.map(function(quiz){
       return(
-        <StudentQuiz quizName = {quiz.quiz.name} gradeValue = {quiz.grade}/>
+        <StudentQuiz quizName={quiz.quiz.name} gradeValue={quiz.grade}/>
       );
     });
     return (
