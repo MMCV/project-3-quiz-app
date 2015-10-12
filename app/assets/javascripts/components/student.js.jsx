@@ -1,11 +1,11 @@
 var StudentQuizIndex = React.createClass({
   render: function() {
-      console.log(this.props.quizzes)
     return (
       <div className="studentContainer">
         <StudentName student={this.props.student}/>
-        <a href="/quiz">You have a quiz to take!</a>
+        <a href="/quiz">{this.props.message}</a>
         <StudentQuizList quizzes={this.props.quizzes}/>
+        <a href="/studentsignup">Sign up for a cohort</a>
       </div>
     );
   }
@@ -16,11 +16,6 @@ var StudentName = React.createClass({
     return (
       <div className="studentNameContainer">
         <h2 className="studentName">Welcome, {this.props.student.first_name}!</h2>
-<<<<<<< HEAD
-=======
-        <div>Here are the quizzes you have taken:</div>
-        <a href="/studentsignup">Sign up for a cohort</a>
->>>>>>> master
       </div>
     );
   }

@@ -288,7 +288,8 @@ var CreateMultipleChoiceQuestion = React.createClass ({
 
 var CurrentQuiz = React.createClass({
   render: function() {
-    var quizLink = '/lets_take_a_quiz/'+{this.props.quiz.id}
+    var quizId = this.props.quiz.id;
+    var quizLink = '/lets_take_a_quiz/'+quizId;
     return (
       <div className="currentQuiz">
         <a href={quizLink}>{this.props.name}</a>
@@ -338,24 +339,24 @@ var MultipleChoiceQuestion = React.createClass({
   render: function() {
     return (
       <div>
+        <div>{this.props.question.question_text}</div>
         <div className="form-group">
+          <input type="radio" name={this.props.question.id} value="A"/>
           <label>{this.props.question.answer_1}</label>
-          <input type="radio" name={this.props.question.id} value="A">A</input>
         </div>
         <div className="form-group">
+          <input type="radio" name={this.props.question.id} value="B"/>
           <label>{this.props.question.answer_2}</label>
-          <input type="radio" name={this.props.question.id} value="B">B</input>
         </div>
         <div className="form-group">
+          <input type="radio" name={this.props.question.id} value="C"/>
           <label>{this.props.question.answer_3}</label>
-          <input type="radio" name={this.props.question.id} value="C">C</input>
         </div>
         <div className="form-group">
+          <input type="radio" name={this.props.question.id} value="D"/>
           <label>{this.props.question.answer_4}</label>
-          <input type="radio" name={this.props.question.id} value="D">D</input>
         </div>
       </div>
     )
   }
 })
->>>>>>> master
