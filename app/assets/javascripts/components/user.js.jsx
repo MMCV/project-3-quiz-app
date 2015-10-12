@@ -105,13 +105,21 @@ var ShowUser = React.createClass ({
 var UserLogin = React.createClass({
   render: function() {
     return (
-      <div>
-        <h2>Log in please</h2>
-        <form method="post" action="/login_attempt">
+      <div className = 'container'>
+        <h2>Please Log In</h2>
+        <form role='form' method="post" action="/login_attempt">
           <input name="authenticity_token" type="hidden" value="token_value" />
-          <input type="text" name="email" />
-          <input type="text" name="password" />
-          <input className="btn-default" type="submit" />
+            <div className="form-group">
+              <label for="email">Email:</label>
+              <input type="text" name="email" className='form-control'/>
+            </div>
+            <div className='form-group'>
+              <label for="password">Password:</label>
+              <input type="text" name="password" className='form-control'/>
+            </div>
+            <div className='form-group'>
+              <input className="btn-default" type="submit" />
+            </div>
         </form>
       </div>
     )
