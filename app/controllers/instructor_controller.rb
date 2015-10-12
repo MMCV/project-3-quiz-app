@@ -7,6 +7,7 @@ class InstructorController < ApplicationController
     @user_id = current_user.id
     @instructor = User.find(@user_id)
     @instructor_cohort = @instructor.cohorts
+    render component: 'ShowInstructor', props: { cohorts: @instructor_cohort }
   end
 
   def studentlist
