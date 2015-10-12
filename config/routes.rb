@@ -26,7 +26,7 @@ Rails.application.routes.draw do
   # You can have the root of your site routed with "root"
   root 'sessions#new'
 
-  get '/lets_take_a_quiz' => 'students#student_take_quiz'
+  get '/lets_take_a_quiz/:id' => 'students#student_take_quiz'
   post '/lets_take_a_quiz_submit' => 'students#submit_the_quiz'
 
   # Example of regular route:

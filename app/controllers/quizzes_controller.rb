@@ -29,14 +29,20 @@ class QuizzesController < ApplicationController
 
 
   def current
-    @user = User.find(1)
-    @cohort = @user.cohorts
-    @time = Time.new
-    @active_quizzes = Quiz.where(:assigned_date => "#{@time.year}-#{@time.month}-#{@time.day}")
-    @quizzes = @active_quizzes.map{|e| e.name}
+    @user = User.find(current_user.id)
+    @cohorts = @user.cohorts
+    @cohort_quizzes = @cohorts.map{|e| e.quizzes}
+    @date = Time.new
+    @current_date = "#{@date.year}-#{@date.month}-#{@date.day}"
+    @active_quiz = Quiz.find_by(:assigned_date => @current_date)
+    @quiz = @cohort_quizzes.map{|e| e.where(:id => @active_quiz.id)}[0]
 
-    render component: 'CurrentQuiz', props: {name: @quiz}
+    if @cohort_quizzes.map{|e| e.where(:id => @active_quiz.id)}[0]
+      render component: 'CurrentQuiz', props: {quiz: @quiz[0], name: @quiz[0].name.capitalize}
+    else
+      render component: 'NoCurrentQuiz'
+    end
+
   end
-
 
 end
