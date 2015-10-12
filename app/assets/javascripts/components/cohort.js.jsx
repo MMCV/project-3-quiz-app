@@ -29,7 +29,7 @@ var ShowCohort = React.createClass ({
 
 var NewCohort = React.createClass ({
 	getInitialState: function() {
-		return {name:'', description:'', submit: 'false', data:{}}
+		return {name:'', description:'', cohortEmails:'', submit: 'false', data:{}}
 	},
 	handleNameChange: function(e) {
 		this.setState({name:e.target.value})
@@ -37,8 +37,13 @@ var NewCohort = React.createClass ({
 	handleDescriptionChange: function(e) {
 		this.setState({description:e.target.value})
 	},
+
+
 	handleSubmit: function(e) {
 		e.preventDefault();
+		var node = this.refs['cohortStudents'].getDOMNode(),
+			 emails = node.value.trim().split(" ");
+			 console.log(emails);
 		var that = this
 		$.ajax({
 			url: '/cohorts',
@@ -56,6 +61,7 @@ var NewCohort = React.createClass ({
 	render: function() {
 		if ( this.state.submit == "true") {
 			console.log(this.state.data)
+			console.log(emails);
 			return (
 				<div className="container">
 					<ShowCohort cohort={this.state.data} />
@@ -66,9 +72,19 @@ var NewCohort = React.createClass ({
 				<div className="container">
 					<h3>Create a new cohort</h3>
 					<form onSubmit={this.handleSubmit}>
-						<input type="text" value={this.state.name} onChange={this.handleNameChange}/>
-						<input type="text" value={this.state.description} onChange={this.handleDescriptionChange}/>
-						<input type="submit"/>
+						<div className="form-group">
+							<label for="cohortName">Cohort Name</label>
+							<input type="text" name="cohortName" value={this.state.name} className="form-control" onChange={this.handleNameChange}/>
+						</div>
+						<div className="form-group">
+							<label for="cohortDescription">Cohort Description</label>
+							<input type="text" name="cohortDescription" className="form-control" value={this.state.description} onChange={this.handleDescriptionChange}/>
+						</div>
+						<div className="form-group">
+							<label for="cohortStudent">Cohort Students (please enter emails separated by commas)</label>
+							<textarea ref='cohortStudents' name="cohortStudent" className="form-control" />
+						</div>
+							<input type="submit"/>
 					</form>
 				</div>
 			)
@@ -85,7 +101,7 @@ var CohortStudentSignup = React.createClass ({
 			)
 		})
 		return (
-			<div className="container"> 
+			<div className="container">
 				<h3>Sign up for a cohort</h3>
 				<form method="post" action="/student_signuppost">
 				  <input name="authenticity_token" type="hidden" value="token_value" />
@@ -109,7 +125,7 @@ var CohortInstructorSignup = React.createClass ({
 			)
 		})
 		return (
-			<div className="container"> 
+			<div className="container">
 				<h3>Sign up for a cohort</h3>
 				<form method="post" action="/instructor_signuppost">
 				  <input name="authenticity_token" type="hidden" value="token_value" />
