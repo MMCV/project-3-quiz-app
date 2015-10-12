@@ -1,5 +1,3 @@
-require 'pry'
-
 class InstructorController < ApplicationController
   before_filter :authorize
 
