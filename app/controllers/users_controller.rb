@@ -7,15 +7,18 @@ class UsersController < ApplicationController
   end
 
   def new
-  	render component: 'UserNew'
+    @cohorts = Cohort.all
+  	render component: 'UserNew', props: { cohorts: @cohorts }
   end
 
   def create
      if params[:type]=="Student"
      	@student = Student.new(first_name: params[:first_name], last_name: params[:last_name], email: params[:email], password: params[:password], password_confirmation: params[:password_confirmation])
        if @student.save
-         session[:user_id] = @student.id
-         redirect_to student_path(@student)
+          @cohort = Cohort.find(params[:cohort].to_i)
+          @student.cohorts << @cohort
+          session[:user_id] = @student.id
+          redirect_to student_path(@student)
        end
      else
        @instructor = Instructor.new(first_name: params[:first_name], last_name: params[:last_name], email: params[:email], password: params[:password], password_confirmation: params[:password_confirmation])
