@@ -34,6 +34,11 @@ var User = React.createClass({
 
 var UserNew = React.createClass({
   render: function() {
+    var cohort_select = this.props.cohorts.map(function(cohort) {
+      return (
+        <option name="cohort" value={cohort.id}>{cohort.name}</option>
+      )
+    })
     return (
       <div className="container">
         <h3>Create a new user</h3>
@@ -70,6 +75,15 @@ var UserNew = React.createClass({
               <option value="Student">Student</option>
               <option value="Instructor">Instructor</option>
             </select>
+          </div>
+
+          <div className="form-group">
+            <label>Sign up for a cohort!</label>
+            <div>
+              <select name="cohort">
+                {cohort_select}
+              </select>
+            </div>
           </div>
 
           <div className="form-group">
