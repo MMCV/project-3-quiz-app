@@ -15,9 +15,9 @@ var ShowInstructor = React.createClass({
       var cohortlistNodes = this.props.cohorts.map(function(cohort){
         return(
           <div className="dropdown list-group">
-            <button class="btn btn-default dropdown-toggle list-group-item" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+            <button className="btn btn-default dropdown-toggle list-group-item" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
               {cohort.name}
-              <span class="caret"></span>
+              <span className="caret" ></span>
             </button>
             <ul className="dropdown-menu" aria-labelledby="dropdownMenu1">
               <li className = "dropdown-header ">Students: </li>
@@ -32,7 +32,7 @@ var ShowInstructor = React.createClass({
       cohortlistNodes=[]
     }
     return (
-      <div className='dropdown'>
+      <div className='InstructorContainer'>
         {cohortlistNodes}
       </div>
     );
@@ -103,7 +103,7 @@ var Student = React.createClass({
     var studentLink = '/students/'+studentId;
 
     return(
-      <li><a href={studentLink}>{this.props.student.first_name} {this.props.student.last_name} </a></li>
+      <a href={studentLink}>{this.props.student.first_name} {this.props.student.last_name} </a>
     )
   }
 })
@@ -154,9 +154,9 @@ var InstructorQuizList = React.createClass({
       QuizNodes=[]
     }
     return(
-      <div>
+      <li>
         {QuizNodes}
-      </div>
+      </li>
     )
   }
 })
@@ -166,7 +166,7 @@ var InstructorQuiz = React.createClass({
     console.log(this.props.quiz.id);
     var quizLink = "/quizzes/"+(this.props.quiz.id)
     return(
-      <li><a href={quizLink}>{this.props.quiz.name}</a></li>
+      <a href={quizLink}>{this.props.quiz.name}</a>
     )
   }
 })

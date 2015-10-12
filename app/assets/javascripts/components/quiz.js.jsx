@@ -2,9 +2,9 @@ var QuizIndex = React.createClass({
   render: function() {
     console.log('test')
     return (
-      <div>
+      <div className="container">
         <div>"Hello!"</div>
-        <div><QuizList quizzes={this.props.quizzes} /></div>
+        <QuizList quizzes={this.props.quizzes} />
       </div>
     );
   }
@@ -14,9 +14,7 @@ var QuizList = React.createClass({
   render: function() {
     var quizz = this.props.quizzes.map(function(quiz) {
       return (
-        <div>
           <Quiz name={quiz.name} description={quiz.description} adate={quiz.assigned_date} />
-        </div>
       )
     })
     return (
@@ -28,10 +26,12 @@ var QuizList = React.createClass({
 var Quiz = React.createClass({
   render: function() {
     return (
-      <div>
-        <div>Name: {this.props.name}</div>
-        <div>Description: {this.props.description}</div>
-        <div>Assigned Date: {this.props.adate}</div>
+      <div className ="panel panel-default">
+        <div className="panel-heading">
+          <h4>Name: {this.props.name}</h4>
+        </div>
+        <div className="panel-body">Description: {this.props.description}</div>
+        <div className="panel-body">Assigned Date: {this.props.adate}</div>
       </div>
     )
   }
@@ -47,15 +47,26 @@ var NewQuiz = React.createClass({
     return (
       <div className="container">
         <h2> Create a Quiz </h2>
-        <form method="post" action="/quizzes">
-          <input name="authenticity_token" type="hidden" value="token_value" />
+        <form role ='form' method="post" action="/quizzes">
+          <input className="form-control" name="authenticity_token" type="hidden" value="token_value" />
           <select name="cohort">
             {cohort_select}
           </select>
-          <input type="text" name="name" placeholder="Quiz Name"/>
-          <input type="text" name="description" placeholder="Quiz Description"/>
-          <input type="text" name="assigned_date" placeholder="YYYY-MM-DD"/>
-          <input type="submit" value="Create Quiz"/>
+          <div className ="form-group">
+            <label for="name">Quiz Name</label>
+            <input className="form-control" type="text" name="name" placeholder="Quiz Name"/>
+          </div>
+          <div className = "form-group">
+            <label for="description">Description</label>
+            <input className="form-control" type="text" name="description" placeholder="Quiz Description"/>
+          </div>
+          <div className = "form-group">
+            <label for="assigned_deat">Assigned Date</label>
+            <input className="form-control" type="text" name="assigned_date" placeholder="YYYY-MM-DD"/>
+          </div>
+          <div className = "form-group">
+            <input className="form-control" type="submit" value="Create Quiz"/>
+          </div>
         </form>
       </div>
     )
