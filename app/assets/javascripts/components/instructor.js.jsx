@@ -79,7 +79,6 @@ var StudentList = React.createClass({
       </div>
     )
   }
-
 })
 
 var Student = React.createClass({

@@ -11,10 +11,10 @@ class CohortsController < ApplicationController
 	end
 
 	def create
-		@cohort = Cohort.new(name: params[:name], description: params[:description])
+		@cohort = Cohort.new(name: params[:cohortName], description: params[:cohortDescription], cohort_emails: params[:cohortEmails])
 		if @cohort.save
 			current_user.cohorts << @cohort
-			render json: @cohort
+			redirect_to cohort_path(@cohort)
 		end
 	end
 

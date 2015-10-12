@@ -28,56 +28,49 @@ var ShowCohort = React.createClass ({
 
 
 var NewCohort = React.createClass ({
-	getInitialState: function() {
-		return {name:'', description:'', cohortEmails:'', submit: 'false', data:{}}
-	},
-	handleNameChange: function(e) {
-		this.setState({name:e.target.value})
-	},
-	handleDescriptionChange: function(e) {
-		this.setState({description:e.target.value})
-	},
-
-
-	handleSubmit: function(e) {
-		e.preventDefault();
-		var node = this.refs['cohortStudents'].getDOMNode(),
-			 emails = node.value.trim().split(" ");
-			 console.log(emails);
-		var that = this
-		$.ajax({
-			url: '/cohorts',
-			method: 'POST',
-			data: {
-				name: that.state.name,
-				description: that.state.description
-			},
-			success: function(results, success, xhr) {
-				that.setState({data:results})
-				that.setState({submit:'true'})
-			}
-		})
-	},
+	// getInitialState: function() {
+	// 	return {name:'', description:'', cohortEmails:'', submit: 'false', data:{}}
+	// },
+	// handleNameChange: function(e) {
+	// 	this.setState({name:e.target.value})
+	// },
+	// handleDescriptionChange: function(e) {
+	// 	this.setState({description:e.target.value})
+	// },
+	//
+	//
+	// handleSubmit: function(e) {
+	// 	e.preventDefault();
+	// 	var node = this.refs['cohortStudents'].getDOMNode(),
+	// 		 emails = node.value.trim().split(" ");
+	// 		 console.log(emails);
+	// 	var that = this
+	// 	$.ajax({
+	// 		url: '/cohorts',
+	// 		method: 'POST',
+	// 		data: {
+	// 			name: that.state.name,
+	// 			description: that.state.description
+	// 		},
+	// 		success: function(results, success, xhr) {
+	// 			that.setState({data:results})
+	// 			that.setState({submit:'true'})
+	// 		}
+	// 	})
+	// },
 	render: function() {
-		if ( this.state.submit == "true") {
-			console.log(this.state.data)
-			return (
-				<div className="container">
-					<ShowCohort cohort={this.state.data} />
-				</div>
-			)
-		} else {
 			return (
 				<div className="container">
 					<h3>Create a new cohort</h3>
-					<form onSubmit={this.handleSubmit}>
+					<form role="form" method="post" action="/cohorts">
+						<input name="authenticity_token" type="hidden" value="token_value" />
 						<div className="form-group">
 							<label for="cohortName">Cohort Name</label>
-							<input type="text" name="cohortName" value={this.state.name} className="form-control" onChange={this.handleNameChange}/>
+							<input type="text" name="cohortName" className="form-control"/>
 						</div>
 						<div className="form-group">
 							<label for="cohortDescription">Cohort Description</label>
-							<input type="text" name="cohortDescription" className="form-control" value={this.state.description} onChange={this.handleDescriptionChange}/>
+							<input type="text" name="cohortDescription" className="form-control"/>
 						</div>
 						<div className="form-group">
 							<label for="cohortStudent">Cohort Students (please enter emails separated by commas)</label>
@@ -88,7 +81,6 @@ var NewCohort = React.createClass ({
 				</div>
 			)
 		}
-	}
 })
 
 var CohortStudentSignup = React.createClass ({
