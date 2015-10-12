@@ -295,3 +295,65 @@ var CurrentQuiz = React.createClass({
     );
   }
 });
+
+
+var TakeAQuizTemplate = React.createClass ({
+  render: function() {
+    var questions = this.props.questions.map(function(question) {
+      if (question.type == "text") {
+        return (
+          <ShortAnswerQuestion question={question} />
+        )
+      } else {
+        return (
+          <MultipleChoiceQuestion question={question} />
+        )
+      }
+    })
+    return (
+      <div className="container">
+        <form action="" method="post">
+          <input name="authenticity_token" type="hidden" value="token_value" />
+          {questions}
+        </form>
+      </div>
+    )
+  }
+})
+
+
+var ShortAnswerQuestion = React.createClass({
+  render: function() {
+    return (
+      <div className="form-group">
+        <label>{this.props.question.question_text}</label>
+        <input type="textarea" name={this.props.question.id} className="form-control" />
+      </div>
+    )
+  }
+})
+
+var MultipleChoiceQuestion = React.createClass({
+  render: function() {
+    return (
+      <div>
+        <div className="form-group">
+          <label>{this.props.question.answer_1}</label>
+          <input type="radio" name={this.props.question.id} value="A">A</input>
+        </div>
+        <div className="form-group">
+          <label>{this.props.question.answer_2}</label>
+          <input type="radio" name={this.props.question.id} value="B">B</input>
+        </div>
+        <div className="form-group">
+          <label>{this.props.question.answer_3}</label>
+          <input type="radio" name={this.props.question.id} value="C">C</input>
+        </div>
+        <div className="form-group">
+          <label>{this.props.question.answer_4}</label>
+          <input type="radio" name={this.props.question.id} value="D">D</input>
+        </div>
+      </div>
+    )
+  }
+})

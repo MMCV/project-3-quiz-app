@@ -40,12 +40,12 @@ var UserNew = React.createClass({
         <form role="form" method="post" action="/users">
           <input name="authenticity_token" type="hidden" value="token_value" />
           <div className="form-group">
-            <label for="firstname">First Name</label>
+            <label for="first_name">First Name</label>
             <input type="text" name="first_name" className="form-control" />
           </div>
 
           <div className="form-group">
-            <label for="lastname">Last Name</label>
+            <label for="last_name">Last Name</label>
             <input type="text" name="last_name" className="form-control" />
           </div>
 
@@ -60,7 +60,7 @@ var UserNew = React.createClass({
           </div>
 
           <div className="form-group">
-            <label for="passconfirm">Password Confirm</label>
+            <label for="password_confirmation">Password Confirm</label>
             <input type="text" name="password_confirmation" className="form-control" />
           </div>
 

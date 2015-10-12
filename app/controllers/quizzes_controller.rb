@@ -23,7 +23,7 @@ class QuizzesController < ApplicationController
 
   def show
     @quiz = Quiz.find(params[:id])
-    @questions = @quiz.questions
+    @questions = @quiz.questions.order(:id)
     render component: 'ShowQuiz', props: { quiz: @quiz, questions: @questions }
   end
 

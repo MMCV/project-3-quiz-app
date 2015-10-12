@@ -11,10 +11,31 @@ class StudentsController < ApplicationController
       @quiz_grades << {quiz: @quizzes[x], grade: @grades_display[x]}
     end
 
-    render component: 'StudentQuizIndex', props: {student: @student, quizzes: @quiz_grades}
+    if current_user.type == 'Student'
+      if current_user.id == params[:id].to_i
+        render component: 'StudentQuizIndex', props: {student: @student, quizzes: @quiz_grades}
+      else
+        render component: 'UnauthorizedStudentAccess'
+      end
+    elsif current_user.type == 'Instructor'
+      render component: 'InstructorStudentQuizIndex', props: {student: @student, quizzes: @quiz_grades}
+    end
+
   end
 
   def student_take_quiz
+    # Get the quiz they click on
+    @quiz = Quiz.find(params[:id])
+    # Grab the questions for that quiz to pass to the component
+    @questions = @quiz.questions
+    render component: 'TakeAQuizTemplate', props: {quiz: @quiz, questions: @questions}
+  end
 
+  def submit_the_quiz
+    @student = Student.find(session[:user_id])
+    params.each do |q_id, answer|
+      @solution = Solution.create(student_answer: answer, user_id: @student.id, question_id: q_id)
+    end
+    redirect_to student_path(@student.id)
   end
 end
