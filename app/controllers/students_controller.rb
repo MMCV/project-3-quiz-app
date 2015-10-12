@@ -20,10 +20,10 @@ class StudentsController < ApplicationController
 
     if current_user.type == 'Student'
       if current_user.id == params[:id].to_i
-        if @cohort_quizzes.map{|e| e.where(:id => @active_quiz.id)}[0] == nil
-          render component: 'StudentQuizIndex', props: {student: @student, quizzes: @quiz_grades, message: ''}
-        else
+        if @cohort_quizzes.map{|e| e.where(:id => @active_quiz.id)}[0][0]
           render component: 'StudentQuizIndex', props: {student: @student, quizzes: @quiz_grades, message: 'You have a quiz to take!'}
+        else
+          render component: 'StudentQuizIndex', props: {student: @student, quizzes: @quiz_grades, message: ''}
         end
       else
         render component: 'UnauthorizedStudentAccess'
