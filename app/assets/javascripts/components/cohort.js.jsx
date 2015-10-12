@@ -61,7 +61,6 @@ var NewCohort = React.createClass ({
 	render: function() {
 		if ( this.state.submit == "true") {
 			console.log(this.state.data)
-			console.log(emails);
 			return (
 				<div className="container">
 					<ShowCohort cohort={this.state.data} />
