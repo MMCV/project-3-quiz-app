@@ -19,9 +19,9 @@ var ShowCohort = React.createClass ({
 	render: function() {
 		return (
 			<div className="container">
-				<h3>Hello {this.props.cohort.name}</h3>
-				<p>{this.props.cohort.description}</p>
-				<p>emails: {this.props.cohort.cohort_emails}</p>
+				<h3>Cohort Name: {this.props.cohort.name}</h3>
+				<p><strong>Cohort Description: </strong>{this.props.cohort.description}</p>
+				<p> <strong>Cohort Members: </strong> {this.props.cohort.cohort_emails}</p>
 			</div>
 		)
 	}
@@ -29,36 +29,6 @@ var ShowCohort = React.createClass ({
 
 
 var NewCohort = React.createClass ({
-	// getInitialState: function() {
-	// 	return {name:'', description:'', cohortEmails:'', submit: 'false', data:{}}
-	// },
-	// handleNameChange: function(e) {
-	// 	this.setState({name:e.target.value})
-	// },
-	// handleDescriptionChange: function(e) {
-	// 	this.setState({description:e.target.value})
-	// },
-	//
-	//
-	// handleSubmit: function(e) {
-	// 	e.preventDefault();
-	// 	var node = this.refs['cohortStudents'].getDOMNode(),
-	// 		 emails = node.value.trim().split(" ");
-	// 		 console.log(emails);
-	// 	var that = this
-	// 	$.ajax({
-	// 		url: '/cohorts',
-	// 		method: 'POST',
-	// 		data: {
-	// 			name: that.state.name,
-	// 			description: that.state.description
-	// 		},
-	// 		success: function(results, success, xhr) {
-	// 			that.setState({data:results})
-	// 			that.setState({submit:'true'})
-	// 		}
-	// 	})
-	// },
 	render: function() {
 			return (
 				<div className="container">
@@ -74,8 +44,8 @@ var NewCohort = React.createClass ({
 							<input type="text" name="cohortDescription" className="form-control"/>
 						</div>
 						<div className="form-group">
-							<label for="cohortStudent">Cohort Students (please enter emails separated by commas)</label>
-							<textarea ref='cohortStudents' name="cohortStudent" className="form-control" />
+							<label for="cohort_emails">Cohort Students (please enter emails separated by spaces)</label>
+							<textarea ref='cohort_emails' name="cohort_emails" className="form-control" />
 						</div>
 							<input type="submit"/>
 					</form>

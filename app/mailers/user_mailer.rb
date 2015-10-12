@@ -1,4 +1,5 @@
 class UserMailer < ApplicationMailer
+
 ActionMailer::Base.delivery_method = :smtp
 ActionMailer::Base.smtp_settings = {
    :address => "smtp.gmail.com",
@@ -10,10 +11,10 @@ ActionMailer::Base.smtp_settings = {
    :enable_starttls_auto => true
 }
 
- def welcome_email(user)
-   @user = user
-   @url  = '/login'
-   mail(to: @user.email, subject: 'Welcome to My Awesome Site')
+ def welcome_email(cohort)
+   @cohort = cohort
+   emails = @cohort.cohort_emails.split(" ");
+   mail(to: emails, subject: 'Welcome to My Awesome Site')
  end
 
 end

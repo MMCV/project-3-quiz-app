@@ -10,8 +10,6 @@ class UsersController < ApplicationController
   	render component: 'UserNew'
   end
 
-  # UserMailer.welcome_email(user).deliver_now
-
   def create
      if params[:type]=="Student"
      	@student = Student.new(first_name: params[:first_name], last_name: params[:last_name], email: params[:email], password: params[:password], password_confirmation: params[:password_confirmation])

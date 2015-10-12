@@ -11,10 +11,12 @@ class CohortsController < ApplicationController
 	end
 
 	def create
-		@cohort = Cohort.new(name: params[:cohortName], description: params[:cohortDescription], cohort_emails: params[:cohortEmails])
+		@cohort = Cohort.new(name: params[:cohortName], description: params[:cohortDescription], cohort_emails: params[:cohort_emails])
+		@cohortmembers = @cohort.cohort_emails
 		if @cohort.save
 			current_user.cohorts << @cohort
-			redirect_to cohorts_path
+			UserMailer.welcome_email(@cohort).deliver_now
+			redirect_to cohort_path(@cohort)
 		end
 	end
 
