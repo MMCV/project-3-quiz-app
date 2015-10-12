@@ -21,6 +21,7 @@ var ShowCohort = React.createClass ({
 			<div className="container">
 				<h3>Hello {this.props.cohort.name}</h3>
 				<p>{this.props.cohort.description}</p>
+				<p>emails: {this.props.cohort.cohort_emails}</p>
 			</div>
 		)
 	}

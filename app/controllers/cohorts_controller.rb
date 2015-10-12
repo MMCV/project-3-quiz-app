@@ -14,7 +14,7 @@ class CohortsController < ApplicationController
 		@cohort = Cohort.new(name: params[:cohortName], description: params[:cohortDescription], cohort_emails: params[:cohortEmails])
 		if @cohort.save
 			current_user.cohorts << @cohort
-			redirect_to cohort_path(@cohort)
+			redirect_to cohorts_path
 		end
 	end
 
