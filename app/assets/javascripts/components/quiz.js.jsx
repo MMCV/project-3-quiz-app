@@ -312,7 +312,7 @@ var NoCurrentQuiz = React.createClass({
 var TakeAQuizTemplate = React.createClass ({
   render: function() {
     var questions = this.props.questions.map(function(question) {
-      if (question.type == "text") {
+      if (question.question_type == "text") {
         return (
           <ShortAnswerQuestion question={question} />
         )
@@ -324,9 +324,10 @@ var TakeAQuizTemplate = React.createClass ({
     })
     return (
       <div className="container">
-        <form action="" method="post">
+        <form action="/lets_take_a_quiz_submit" method="post">
           <input name="authenticity_token" type="hidden" value="token_value" />
           {questions}
+          <input type="submit" />
         </form>
       </div>
     )
