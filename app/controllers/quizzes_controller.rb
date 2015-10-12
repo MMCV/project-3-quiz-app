@@ -35,9 +35,14 @@ class QuizzesController < ApplicationController
     @date = Time.new
     @current_date = "#{@date.year}-#{@date.month}-#{@date.day}"
     @active_quiz = Quiz.find_by(:assigned_date => @current_date)
-    @quiz = @cohort_quizzes.map{|e| e.where(:id => @active_quiz.id)}[0][0]
-    @name = @quiz.name.capitalize
-    render component: 'CurrentQuiz', props: {quiz: @quiz, name: @name}
+    @quiz = @cohort_quizzes.map{|e| e.where(:id => @active_quiz.id)}[0]
+
+    if @cohort_quizzes.map{|e| e.where(:id => @active_quiz.id)}[0]
+      render component: 'CurrentQuiz', props: {quiz: @quiz[0], name: @quiz[0].name.capitalize}
+    else
+      render component: 'NoCurrentQuiz'
+    end
+
   end
 
 end

@@ -298,6 +298,16 @@ var CurrentQuiz = React.createClass({
   }
 });
 
+var NoCurrentQuiz = React.createClass({
+  render: function() {
+    return (
+      <div>
+        You do not have any quizzes to take at the moment.
+      </div>
+    );
+  }
+});
+
 
 var TakeAQuizTemplate = React.createClass ({
   render: function() {
