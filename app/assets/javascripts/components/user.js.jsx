@@ -33,12 +33,14 @@ var User = React.createClass({
 
 
 var UserNew = React.createClass({
+  getInitialState: function() {
+    return {usertype: "Student"}
+  },
+  handleTypeChange: function(e) {
+    this.setState({usertype: e.target.value})
+  },
   render: function() {
-    var cohort_select = this.props.cohorts.map(function(cohort) {
-      return (
-        <option name="cohort" value={cohort.id}>{cohort.name}</option>
-      )
-    })
+
     return (
       <div className="container">
         <h3>Create a new user</h3>
@@ -70,21 +72,14 @@ var UserNew = React.createClass({
           </div>
 
           <div className="form-group">
-            <label for="usertype">Instructor or Student? </label>
-            <select name="type" className="form-control" defaultValue="Student" >
+            <label>Instructor or Student? </label>
+            <select name="type" className="form-control" defaultValue="Student" onChange={this.handleTypeChange} >
               <option value="Student">Student</option>
               <option value="Instructor">Instructor</option>
             </select>
           </div>
 
-          <div className="form-group">
-            <label>Sign up for a cohort!</label>
-            <div>
-              <select name="cohort">
-                {cohort_select}
-              </select>
-            </div>
-          </div>
+          <CohortSelectOption usertype={this.state.usertype} cohorts={this.props.cohorts} />
 
           <div className="form-group">
             <input type="submit" value="Sign Up"/>
@@ -93,6 +88,30 @@ var UserNew = React.createClass({
         </form>
       </div>
     )
+  }
+})
+
+var CohortSelectOption = React.createClass({
+  render: function() {
+    var cohort_select = this.props.cohorts.map(function(cohort) {
+      return (
+        <option name="cohort" value={cohort.id}>{cohort.name}</option>
+      )
+    })
+    if (this.props.usertype == "Student"){
+      return (
+        <div className="form-group">
+          <label>Select a cohort to sign up for</label>
+          <div>
+            <select name="cohort">
+              {cohort_select}
+            </select>
+          </div>
+        </div>
+      )
+    } else {
+      return (<div></div>)
+    }
   }
 })
 
