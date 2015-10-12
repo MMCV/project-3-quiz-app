@@ -45,7 +45,9 @@ class StudentsController < ApplicationController
   def submit_the_quiz
     @student = Student.find(session[:user_id])
     params.each do |q_id, answer|
-      @solution = Solution.create(student_answer: answer, user_id: @student.id, question_id: q_id)
+      if q_id.to_i > 0
+        @solution = Solution.create(student_answer: answer, user_id: @student.id, question_id: q_id)
+      end
     end
     redirect_to student_path(@student.id)
   end
