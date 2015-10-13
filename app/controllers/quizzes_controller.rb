@@ -1,6 +1,5 @@
-require 'pry'
 class QuizzesController < ApplicationController
-
+  skip_before_filter  :verify_authenticity_token
   def index
     @quizzes = Quiz.all
     render component: 'QuizIndex', props: {quizzes: @quizzes}
