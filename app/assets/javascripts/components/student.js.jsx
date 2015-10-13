@@ -1,7 +1,7 @@
 var StudentQuizIndex = React.createClass({
   render: function() {
     return (
-      <div className="studentContainer">
+      <div className=" container studentContainer">
         <StudentName student={this.props.student}/>
         <a href="/quiz">{this.props.message}</a>
         <StudentQuizList quizzes={this.props.quizzes}/>

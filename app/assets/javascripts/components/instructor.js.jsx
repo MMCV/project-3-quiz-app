@@ -2,12 +2,8 @@ var InstructorBox = React.createClass({
   render: function(){
     return (
       <div className = "container">
-        <a href="/instructorsignup">Sign up for a cohort</a>
-        <button><a href= "/cohorts/new">New Cohort</a></button>
-        <h3> Your cohorts: </h3>
+        <h4> Your Cohorts </h4>
         <ShowInstructor cohorts={this.props.cohorts}/>
-        <button><a href="/quizzes/new">New Quiz</a></button>
-        <button><a href='/quizzes'>All Quizzes</a></button>
       </div>
     )
   }
@@ -18,9 +14,10 @@ var ShowInstructor = React.createClass({
     if(this.props.cohorts){
       var cohortlistNodes = this.props.cohorts.map(function(cohort){
         return(
-          <div className="dropdown">
-            <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-              <h5>{cohort.name}</h5>
+          <div className="dropdown list-group">
+            <button className="btn btn-default dropdown-toggle list-group-item" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+              {cohort.name}
+              <span className="caret" ></span>
             </button>
             <ul className="dropdown-menu" aria-labelledby="dropdownMenu1">
               <li className = "dropdown-header ">Students: </li>
@@ -35,7 +32,7 @@ var ShowInstructor = React.createClass({
       cohortlistNodes=[]
     }
     return (
-      <div className='dropdown'>
+      <div className='InstructorContainer'>
         {cohortlistNodes}
       </div>
     );
@@ -106,7 +103,7 @@ var Student = React.createClass({
     var studentLink = '/students/'+studentId;
 
     return(
-      <li><a href={studentLink}>{this.props.student.first_name} {this.props.student.last_name} </a></li>
+      <a href={studentLink}>{this.props.student.first_name} {this.props.student.last_name} </a>
     )
   }
 })
@@ -157,9 +154,9 @@ var InstructorQuizList = React.createClass({
       QuizNodes=[]
     }
     return(
-      <div>
+      <li>
         {QuizNodes}
-      </div>
+      </li>
     )
   }
 })
@@ -169,7 +166,7 @@ var InstructorQuiz = React.createClass({
     console.log(this.props.quiz.id);
     var quizLink = "/quizzes/"+(this.props.quiz.id)
     return(
-      <li><a href={quizLink}>{this.props.quiz.name}</a></li>
+      <a href={quizLink}>{this.props.quiz.name}</a>
     )
   }
 })
