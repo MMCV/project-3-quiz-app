@@ -196,19 +196,24 @@ var CreateTextQuestion = React.createClass ({
     if (this.state.status == "submitted") {
       return (
         <div>
-          <h4>{that.state.question_value}</h4>
+          <h6>{that.state.question_value}</h6>
           <button onClick={that.handleEdit}>Edit</button>
         </div>
       )
     } else {
       return (
-        <div>
+        <div className='container'>
           <br/>
           <h4>Create short answer question</h4>
-          <form onSubmit={this.handleSubmit}>
-            <input type="text" onChange={this.handleTextChange} value={this.state.question_value} />
-            <br/>
-            <input type="submit" />
+          <form role='form' onSubmit={this.handleSubmit}>
+            <div className='form-group'>
+              <label for="question"></label>
+              <input name='question' className='form-control' type="text" onChange={this.handleTextChange} value={this.state.question_value}></input>
+            </div>
+            <div className="form-group">
+              <br/>
+              <input type="submit" />
+            </div>
           </form>
         </div>
       )
@@ -276,36 +281,55 @@ var CreateMultipleChoiceQuestion = React.createClass ({
     var that = this
     if (this.state.status == "submitted") {
       return (
-        <div>
-          <h4>{that.state.question_value}</h4>
-          <ul>
+        <div className='dropdown'>
+          <h6 className="dropdown-toggle" type="button" id="multiple-choice" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+            {that.state.question_value}
+            <span className="caret"></span>
+          </h6>
+          <ul className="dropdown-menu" aria-labelledby="multiple-choice">
+            <li className='drop-header'>answers:</li>
             <li>{that.state.answer_1}</li>
             <li>{that.state.answer_2}</li>
             <li>{that.state.answer_3}</li>
             <li>{that.state.answer_4}</li>
           </ul>
-          <button onClick={this.handleEdit}>Edit</button>
+          <div>
+            <button onClick={this.handleEdit}>Edit</button>
+          </div>
         </div>
       )
     } else {
       return (
         <div>
           <br/>
-          <form onSubmit={this.handleSubmit}>
-            <input type="text" onChange={this.handleTextChange} value={this.state.question_value} /> <br/>
-            <input type="checkbox">A</input>
-            <input type="text" onChange={this.handleAnswer1Change} value={this.state.answer_1}></input>
-            <br/>
-            <input type="checkbox">B</input>
-            <input type="text" onChange={this.handleAnswer2Change} value={this.state.answer_2}></input>
-            <br/>
-            <input type="checkbox">C</input>
-            <input type="text" onChange={this.handleAnswer3Change} value={this.state.answer_3}></input>
-            <br/>
-            <input type="checkbox">D</input>
-            <input type="text" onChange={this.handleAnswer4Change} value={this.state.answer_4}></input>
-            <br/>
-            <input type="submit" />
+          <form role='form' onSubmit={this.handleSubmit}>
+            <div className='form-group'>
+              <label for='question'>Question</label>
+              <input name='question' className= 'form-control' type="text" onChange={this.handleTextChange} value={this.state.question_value} /> <br/>
+            </div>
+            <div className='form-group'>
+              <input type="checkbox">A</input>
+              <input type="text" onChange={this.handleAnswer1Change} value={this.state.answer_1}></input>
+              <br/>
+            </div>
+            <div className='form-group'>
+              <input type="checkbox">B</input>
+              <input type="text" onChange={this.handleAnswer2Change} value={this.state.answer_2}></input>
+              <br/>
+            </div>
+            <div className='form-group'>
+              <input type="checkbox">C</input>
+              <input type="text" onChange={this.handleAnswer3Change} value={this.state.answer_3}></input>
+              <br/>
+            </div>
+            <div className='form-group'>
+              <input type="checkbox">D</input>
+              <input type="text" onChange={this.handleAnswer4Change} value={this.state.answer_4}></input>
+              <br/>
+            </div>
+            <div className='form-group'>
+              <input type="submit" />
+            </div>
           </form>
         </div>
       )
