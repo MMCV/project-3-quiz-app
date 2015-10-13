@@ -39,6 +39,12 @@ var Quiz = React.createClass({
 })
 
 var NewQuiz = React.createClass({
+  getInitialState: function() {
+    return {token: ''}
+  },
+  componentDidMount: function(e) {
+    this.setState({token: $('meta[name=csrf-token]').attr('content')})
+  },
   render: function() {
     var cohort_select = this.props.cohorts.map(function(cohort) {
       return (
@@ -49,7 +55,7 @@ var NewQuiz = React.createClass({
       <div className="container">
         <h2> Create a Quiz </h2>
         <form role ='form' method="post" action="/quizzes">
-          <input className="form-control" name="authenticity_token" type="hidden" value="token_value" />
+          <input className="form-control" name="authenticity_token" type="hidden" value={this.state.token} />
           <div className ="form-group">
             <label for="cohort">Choose a Cohort</label>
             <select className="form-control" name="cohort">
@@ -156,10 +162,14 @@ var AddQuestionField = React.createClass({
 })
 
 var CreateTextQuestion = React.createClass ({
+  componentDidMount: function(e) {
+    this.setState({token: $('meta[name=csrf-token]').attr('content')})
+  },
   getInitialState: function() {
     return {
       question_value:'',
-      status: ''
+      status: '',
+      token: ''
     };
   },
   handleTextChange: function(e) {
@@ -176,7 +186,8 @@ var CreateTextQuestion = React.createClass ({
         question_text: that.state.question_value,
         question_answer: '',
         question_type: that.props.type,
-        quiz_id: that.props.quiz_id
+        quiz_id: that.props.quiz_id,
+        "token_value": that.state.token
       },
       success: function(data) {
         that.setState({status:'submitted'})
@@ -219,6 +230,9 @@ var CreateTextQuestion = React.createClass ({
 })
 
 var CreateMultipleChoiceQuestion = React.createClass ({
+  componentDidMount: function(e) {
+    this.setState({token: $('meta[name=csrf-token]').attr('content')})
+  },
   getInitialState: function() {
     return {
       question_value:'',
@@ -227,7 +241,8 @@ var CreateMultipleChoiceQuestion = React.createClass ({
       answer_2: '',
       answer_3: '',
       answer_4: '',
-      status: ''
+      status: '',
+      token: ''
     };
   },
   handleTextChange: function(e) {
@@ -260,7 +275,8 @@ var CreateMultipleChoiceQuestion = React.createClass ({
         answer_2: that.state.answer_2,
         answer_3: that.state.answer_3,
         answer_4: that.state.answer_4,
-        question_type: that.props.type
+        question_type: that.props.type,
+        "token_value": that.state.token
       },
       success: function(data) {
         that.setState({status:'submitted'})
@@ -360,6 +376,12 @@ var NoCurrentQuiz = React.createClass({
 
 
 var TakeAQuizTemplate = React.createClass ({
+  getInitialState: function() {
+    return {token: ''}
+  },
+  componentDidMount: function(e) {
+    this.setState({token: $('meta[name=csrf-token]').attr('content')})
+  },
   render: function() {
     var questions = this.props.questions.map(function(question) {
       if (question.question_type == "text") {
@@ -375,7 +397,7 @@ var TakeAQuizTemplate = React.createClass ({
     return (
       <div className="container">
         <form action="/lets_take_a_quiz_submit" method="post">
-          <input name="authenticity_token" type="hidden" value="token_value" />
+          <input name="authenticity_token" type="hidden" value={this.state.token} />
           {questions}
           <input className="btn btn-default" type="submit" />
         </form>

@@ -1,5 +1,5 @@
 class StudentsController < ApplicationController
-  skip_before_filter  :verify_authenticity_token
+  before_filter :authorize
   def index
     @student = Student.find(params[:id])
     @grades = @student.grades

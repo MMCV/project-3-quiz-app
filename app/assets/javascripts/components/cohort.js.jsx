@@ -31,12 +31,18 @@ var ShowCohort = React.createClass ({
 
 
 var NewCohort = React.createClass ({
+	getInitialState: function() {
+        return {token: ''}
+    },
+    componentDidMount: function(e) {
+        this.setState({token: $('meta[name=csrf-token]').attr('content')})
+    },
 	render: function() {
 			return (
 				<div className="container">
 					<h3>Create a new cohort</h3>
 					<form role="form" method="post" action="/cohorts">
-						<input name="authenticity_token" type="hidden" value="token_value" />
+						<input name="authenticity_token" type="hidden" value={this.state.token} />
 						<div className="form-group">
 							<label for="cohortName">Cohort Name</label>
 							<input type="text" name="cohortName" className="form-control"/>
@@ -58,6 +64,12 @@ var NewCohort = React.createClass ({
 })
 
 var CohortStudentSignup = React.createClass ({
+	getInitialState: function() {
+	  return {token: ''}
+  },
+  componentDidMount: function(e) {
+    this.setState({token: $('meta[name=csrf-token]').attr('content')})
+  },
 	render: function() {
 		console.log(this.props.cohorts)
 		var cohort_dropdown = this.props.cohorts.map(function(cohort) {
@@ -68,7 +80,7 @@ var CohortStudentSignup = React.createClass ({
 		return (
 			<div className="container">
 				<form method="post" action="/student_signuppost">
-				  <input name="authenticity_token" type="hidden" value="token_value" />
+				  <input name="authenticity_token" type="hidden" value={this.state.token} />
 					<div className="form-group">
 						<input list="cohorts" name="cohort" className="form-control"/>
 						<datalist id="cohorts">
@@ -83,6 +95,12 @@ var CohortStudentSignup = React.createClass ({
 })
 
 var CohortInstructorSignup = React.createClass ({
+	getInitialState: function() {
+	  return {token: ''}
+  },
+  componentDidMount: function(e) {
+    this.setState({token: $('meta[name=csrf-token]').attr('content')})
+  },
 	render: function() {
 		console.log(this.props.cohorts)
 		var cohort_dropdown = this.props.cohorts.map(function(cohort) {
@@ -93,7 +111,7 @@ var CohortInstructorSignup = React.createClass ({
 		return (
 			<div className="container">
 				<form method="post" action="/instructor_signuppost">
-					<input name="authenticity_token" type="hidden" value="token_value" />
+					<input name="authenticity_token" type="hidden" value={this.state.token} />
 					<div className="form-group">
 						<input list="cohorts" name="cohort" className="form-control"/>
 						<datalist id="cohorts">

@@ -34,7 +34,10 @@ var User = React.createClass({
 
 var UserNew = React.createClass({
   getInitialState: function() {
-    return {usertype: "Student"}
+    return {usertype: "Student", token: ''}
+  },
+  componentDidMount: function(e) {
+    this.setState({token: $('meta[name=csrf-token]').attr('content')})
   },
   handleTypeChange: function(e) {
     this.setState({usertype: e.target.value})
@@ -45,7 +48,7 @@ var UserNew = React.createClass({
       <div className="container">
         <h3>Create a new user</h3>
         <form role="form" method="post" action="/users">
-          <input name="authenticity_token" type="hidden" value="token_value" />
+          <input name="authenticity_token" type="hidden" value={this.state.token} />
           <div className="form-group">
             <label for="first_name">First Name</label>
             <input type="text" name="first_name" className="form-control" />
@@ -139,12 +142,18 @@ var ShowUser = React.createClass ({
 })
 
 var UserLogin = React.createClass({
+  getInitialState: function() {
+    return {token: ''}
+  },
+  componentDidMount: function(e) {
+    this.setState({token: $('meta[name=csrf-token]').attr('content')})
+  },
   render: function() {
     return (
       <div className = 'container'>
         <h2>Please Log In</h2>
         <form role='form' method="post" action="/login_attempt">
-          <input name="authenticity_token" type="hidden" value="token_value" />
+          <input name="authenticity_token" type="hidden" value={this.state.token} />
             <div className="form-group">
               <label for="email">Email:</label>
               <input type="text" name="email" className='form-control'/>
