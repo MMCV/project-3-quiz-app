@@ -63,12 +63,12 @@ var UserNew = React.createClass({
 
           <div className="form-group">
             <label for="password">Password</label>
-            <input type="text" name="password" className="form-control" />
+            <input type="password" name="password" className="form-control" />
           </div>
 
           <div className="form-group">
             <label for="password_confirmation">Password Confirm</label>
-            <input type="text" name="password_confirmation" className="form-control" />
+            <input type="password" name="password_confirmation" className="form-control" />
           </div>
 
           <div className="form-group">
@@ -79,10 +79,12 @@ var UserNew = React.createClass({
             </select>
           </div>
 
-          <CohortSelectOption usertype={this.state.usertype} cohorts={this.props.cohorts} />
+          <div className="form-group">
+            <CohortSelectOption className="form-control" usertype={this.state.usertype} cohorts={this.props.cohorts} />
+          </div>
 
           <div className="form-group">
-            <input type="submit" value="Sign Up"/>
+            <input type="submit" className="btn btn-primary" value="Sign Up"/>
           </div>
 
         </form>
@@ -101,9 +103,9 @@ var CohortSelectOption = React.createClass({
     if (this.props.usertype == "Student"){
       return (
         <div className="form-group">
-          <label>Select a cohort to sign up for</label>
-          <div>
-            <select name="cohort">
+          <label>Select a cohort to join</label>
+          <div className="form-group">
+            <select name="cohort" className="form-control">
               {cohort_select}
             </select>
           </div>
@@ -148,10 +150,10 @@ var UserLogin = React.createClass({
             </div>
             <div className='form-group'>
               <label for="password">Password:</label>
-              <input type="text" name="password" className='form-control'/>
+              <input type="password" name="password" className='form-control'/>
             </div>
             <div className='form-group'>
-              <input className="btn-default" type="submit" />
+              <input className="btn btn-default" type="submit" />
             </div>
         </form>
       </div>

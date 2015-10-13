@@ -3,7 +3,6 @@ var QuizIndex = React.createClass({
     console.log('test')
     return (
       <div className="container">
-        <div>"Hello!"</div>
         <QuizList quizzes={this.props.quizzes} />
       </div>
     );
@@ -49,9 +48,12 @@ var NewQuiz = React.createClass({
         <h2> Create a Quiz </h2>
         <form role ='form' method="post" action="/quizzes">
           <input className="form-control" name="authenticity_token" type="hidden" value="token_value" />
-          <select name="cohort">
-            {cohort_select}
-          </select>
+          <div className ="form-group">
+            <label for="cohort">Choose a Cohort</label>
+            <select className="form-control" name="cohort">
+                {cohort_select}
+            </select>
+          </div>
           <div className ="form-group">
             <label for="name">Quiz Name</label>
             <input className="form-control" type="text" name="name" placeholder="Quiz Name"/>
@@ -65,7 +67,7 @@ var NewQuiz = React.createClass({
             <input className="form-control" type="text" name="assigned_date" placeholder="YYYY-MM-DD"/>
           </div>
           <div className = "form-group">
-            <input className="form-control" type="submit" value="Create Quiz"/>
+            <input className="btn btn-default" type="submit" value="Create Quiz"/>
           </div>
         </form>
       </div>
@@ -113,7 +115,7 @@ var CreateQuestionTemplate = React.createClass({
           <option value="multiple-choice">Multiple Choice</option>
           <option value="text">Short Answer</option>
         </select>
-        <button onClick={this.onAddClicked}>Add</button>
+        <button className="btn btn-default" onClick={this.onAddClicked}>Add</button>
         <AddQuestionField questions={this.state.questions} type={this.state.type} quiz_id={this.props.quiz_id} />
       </div>
     )
@@ -192,7 +194,7 @@ var CreateTextQuestion = React.createClass ({
           <form onSubmit={this.handleSubmit}>
             <input type="text" onChange={this.handleTextChange} value={this.state.question_value} />
             <br/>
-            <input type="submit" />
+            <input className="btn btn-default" type="submit" />
           </form>
         </div>
       )
@@ -268,7 +270,7 @@ var CreateMultipleChoiceQuestion = React.createClass ({
             <li>{that.state.answer_3}</li>
             <li>{that.state.answer_4}</li>
           </ul>
-          <button onClick={this.handleEdit}>Edit</button>
+          <button className="btn btn-default" onClick={this.handleEdit}>Edit</button>
         </div>
       )
     } else {
@@ -289,7 +291,7 @@ var CreateMultipleChoiceQuestion = React.createClass ({
             <input type="checkbox">D</input>
             <input type="text" onChange={this.handleAnswer4Change} value={this.state.answer_4}></input>
             <br/>
-            <input type="submit" />
+            <input className="btn btn-default" type="submit" />
           </form>
         </div>
       )
@@ -338,7 +340,7 @@ var TakeAQuizTemplate = React.createClass ({
         <form action="/lets_take_a_quiz_submit" method="post">
           <input name="authenticity_token" type="hidden" value="token_value" />
           {questions}
-          <input type="submit" />
+          <input className="btn btn-default" type="submit" />
         </form>
       </div>
     )
