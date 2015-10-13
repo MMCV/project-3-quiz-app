@@ -8,7 +8,7 @@ class QuizzesController < ApplicationController
 
   def new
     # render component: 'Question_New' <-- Question New component
-    @cohorts = @current_user.cohorts
+    @cohorts = current_user.cohorts
     render component: 'NewQuiz', props: { cohorts: @cohorts }
   end
 
@@ -29,7 +29,7 @@ class QuizzesController < ApplicationController
 
 
   def current
-    @user = User.find(@current_user.id)
+    @user = User.find(current_user.id)
     @cohorts = @user.cohorts
     @cohort_quizzes = @cohorts.map{|e| e.quizzes}
     @date = Time.new
