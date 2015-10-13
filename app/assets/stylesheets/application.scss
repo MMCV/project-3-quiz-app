@@ -14,8 +14,30 @@
  *= require_self
  */
 
+ @import url(https://fonts.googleapis.com/css?family=Lobster);
+ @import url(https://fonts.googleapis.com/css?family=Cabin);
+
+$link-color: #FF5147;
+$navbar-default-bg: #00A9BA;
+$navbar-default-color: #FFF;
+$navbar-default-link-color: #FFF;
+$font-family-sans-serif: 'Cabin', sans-serif;
+$font-size-base: 18px;
+
 @import "bootstrap";
 
 #sign-in {
 	margin-left: 20px;
+}
+.navbar-brand {
+
+	font-family:  'Lobster', cursive !important; font-weight: 700; font-size: 2em;
+}
+
+.navbar-toggle {
+	background-color: white;
+}
+
+.icon-bar {
+	background-color: white;
 }
