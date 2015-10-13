@@ -2,13 +2,12 @@ var CohortIndex = React.createClass ({
 	render: function() {
 		var cohorts = this.props.cohorts.map(function(cohort) {
 			return (
-				<div>
 					<ShowCohort cohort={cohort} />
-				</div>
 			)
 		})
 		return (
-			<div>
+			<div className="container">
+				<h3>Cohorts</h3>
 				{cohorts}
 			</div>
 		)
@@ -17,11 +16,14 @@ var CohortIndex = React.createClass ({
 
 var ShowCohort = React.createClass ({
 	render: function() {
+		var cohortLink = "/cohorts/"+(this.props.cohort.id)
 		return (
-			<div className="container">
-				<h3>Cohort Name: {this.props.cohort.name}</h3>
-				<p><strong>Cohort Description: </strong>{this.props.cohort.description}</p>
-				<p> <strong>Cohort Members: </strong> {this.props.cohort.cohort_emails}</p>
+			<div className="panel panel-default">
+				<div className="panel-heading">
+					<a href={cohortLink}><h4>{this.props.cohort.name}</h4></a>
+				</div>
+				<div className="panel-body"><strong>Cohort Description: </strong>{this.props.cohort.description}</div>
+				<div className="panel-body"><strong>Cohort Members: </strong> {this.props.cohort.cohort_emails}</div>
 			</div>
 		)
 	}
@@ -46,8 +48,9 @@ var NewCohort = React.createClass ({
 						<div className="form-group">
 							<label for="cohort_emails">Cohort Students (please enter emails separated by spaces)</label>
 							<textarea ref='cohort_emails' name="cohort_emails" className="form-control" />
-						</div>
-							<input type="submit"/>
+					</div>
+					<input className="btn btn-default" type="submit"/>
+
 					</form>
 				</div>
 			)
@@ -64,14 +67,15 @@ var CohortStudentSignup = React.createClass ({
 		})
 		return (
 			<div className="container">
-				<h3>Sign up for a cohort</h3>
 				<form method="post" action="/student_signuppost">
 				  <input name="authenticity_token" type="hidden" value="token_value" />
-				  <input list="cohorts" name="cohort" />
-					<datalist id="cohorts">
-						{cohort_dropdown}
-				  </datalist>
-	  			<input type="submit" />
+					<div className="form-group">
+						<input list="cohorts" name="cohort" className="form-control"/>
+						<datalist id="cohorts">
+							{cohort_dropdown}
+					  </datalist>
+					</div>
+	  			<input className="btn-primary btn-lg btn-block" type="submit" value="Join Cohort" />
 	  		</form>
   		</div>
 		)
@@ -88,16 +92,17 @@ var CohortInstructorSignup = React.createClass ({
 		})
 		return (
 			<div className="container">
-				<h3>Sign up for a cohort</h3>
 				<form method="post" action="/instructor_signuppost">
-				  <input name="authenticity_token" type="hidden" value="token_value" />
-				  <input list="cohorts" name="cohort" />
-					<datalist id="cohorts">
-						{cohort_dropdown}
-				  </datalist>
-	  			<input type="submit" />
-	  		</form>
-  		</div>
+					<input name="authenticity_token" type="hidden" value="token_value" />
+					<div className="form-group">
+						<input list="cohorts" name="cohort" className="form-control"/>
+						<datalist id="cohorts">
+							{cohort_dropdown}
+						</datalist>
+					</div>
+					<input className="btn-primary btn-lg btn-block" type="submit" value="Join Cohort" />
+				</form>
+			</div>
 		)
 	}
 })

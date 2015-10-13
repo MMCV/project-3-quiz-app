@@ -3,7 +3,7 @@ var QuizIndex = React.createClass({
     console.log('test')
     return (
       <div className="container">
-        <div>"Hello!"</div>
+        <h3>Quizzes</h3>
         <QuizList quizzes={this.props.quizzes} />
       </div>
     );
@@ -14,7 +14,7 @@ var QuizList = React.createClass({
   render: function() {
     var quizz = this.props.quizzes.map(function(quiz) {
       return (
-          <Quiz name={quiz.name} description={quiz.description} adate={quiz.assigned_date} />
+          <Quiz id={quiz.id} name={quiz.name} description={quiz.description} adate={quiz.assigned_date} />
       )
     })
     return (
@@ -25,10 +25,11 @@ var QuizList = React.createClass({
 
 var Quiz = React.createClass({
   render: function() {
+    var quizLink = "/quizzes/"+(this.props.id)
     return (
       <div className ="panel panel-default">
         <div className="panel-heading">
-          <h4>Name: {this.props.name}</h4>
+          <h4><a href={quizLink}> {this.props.name}</a></h4>
         </div>
         <div className="panel-body">Description: {this.props.description}</div>
         <div className="panel-body">Assigned Date: {this.props.adate}</div>
@@ -49,9 +50,12 @@ var NewQuiz = React.createClass({
         <h2> Create a Quiz </h2>
         <form role ='form' method="post" action="/quizzes">
           <input className="form-control" name="authenticity_token" type="hidden" value="token_value" />
-          <select name="cohort">
-            {cohort_select}
-          </select>
+          <div className ="form-group">
+            <label for="cohort">Choose a Cohort</label>
+            <select className="form-control" name="cohort">
+                {cohort_select}
+            </select>
+          </div>
           <div className ="form-group">
             <label for="name">Quiz Name</label>
             <input className="form-control" type="text" name="name" placeholder="Quiz Name"/>
@@ -65,13 +69,14 @@ var NewQuiz = React.createClass({
             <input className="form-control" type="text" name="assigned_date" placeholder="YYYY-MM-DD"/>
           </div>
           <div className = "form-group">
-            <input className="form-control" type="submit" value="Create Quiz"/>
+            <input className="btn btn-default" type="submit" value="Create Quiz"/>
           </div>
         </form>
       </div>
     )
   }
 });
+
 
 var ShowQuiz = React.createClass ({
   render: function() {
@@ -81,13 +86,20 @@ var ShowQuiz = React.createClass ({
       )
     })
     return (
-      <div className="container">
-        <h3> {this.props.quiz.name} </h3>
-        <p> {this.props.quiz.description} </p>
-        <p> {this.props.quiz.assigned_date} </p>
-
-        <h4>Questions</h4>
-        <div>{questions}</div>
+      <div className = "container">
+        <div className="panel panel-default">
+          <div className='panel-heading'>
+            <h3> {this.props.quiz.name} </h3>
+          </div>
+          <div className = 'panel-body'> {this.props.quiz.description} </div>
+          <div className = 'panel-body'> assigned: {this.props.quiz.assigned_date} </div>
+          <div className='panel-heading'>
+            <h5>Questions</h5>
+          </div>
+          <div className = 'panel-body'>
+            {questions}
+          </div>
+        </div>
       </div>
     )
   }
@@ -113,7 +125,7 @@ var CreateQuestionTemplate = React.createClass({
           <option value="multiple-choice">Multiple Choice</option>
           <option value="text">Short Answer</option>
         </select>
-        <button onClick={this.onAddClicked}>Add</button>
+        <button className="btn btn-default" onClick={this.onAddClicked}>Add</button>
         <AddQuestionField questions={this.state.questions} type={this.state.type} quiz_id={this.props.quiz_id} />
       </div>
     )
@@ -180,19 +192,25 @@ var CreateTextQuestion = React.createClass ({
     if (this.state.status == "submitted") {
       return (
         <div>
-          <h4>{that.state.question_value}</h4>
+          <h6>{that.state.question_value}</h6>
           <button onClick={that.handleEdit}>Edit</button>
         </div>
       )
     } else {
       return (
-        <div>
+        <div className='container'>
           <br/>
           <h4>Create short answer question</h4>
-          <form onSubmit={this.handleSubmit}>
-            <input type="text" onChange={this.handleTextChange} value={this.state.question_value} />
-            <br/>
-            <input type="submit" />
+          <form role='form' onSubmit={this.handleSubmit}>
+            <div className='form-group'>
+              <label for="question"></label>
+              <input name='question' className='form-control' type="text" onChange={this.handleTextChange} value={this.state.question_value}></input>
+            </div>
+            <div className="form-group">
+              <br/>
+              <input type="submit" />
+            </div>
+
           </form>
         </div>
       )
@@ -260,36 +278,57 @@ var CreateMultipleChoiceQuestion = React.createClass ({
     var that = this
     if (this.state.status == "submitted") {
       return (
-        <div>
-          <h4>{that.state.question_value}</h4>
-          <ul>
+        <div className='dropdown'>
+          <h6 className="dropdown-toggle" type="button" id="multiple-choice" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+            {that.state.question_value}
+            <span className="caret"></span>
+          </h6>
+          <ul className="dropdown-menu" aria-labelledby="multiple-choice">
+            <li className='drop-header'>answers:</li>
             <li>{that.state.answer_1}</li>
             <li>{that.state.answer_2}</li>
             <li>{that.state.answer_3}</li>
             <li>{that.state.answer_4}</li>
           </ul>
-          <button onClick={this.handleEdit}>Edit</button>
+
+          <div>
+            <button className="btn btn-default" onClick={this.handleEdit}>Edit</button>
+          </div>
         </div>
       )
     } else {
       return (
         <div>
           <br/>
-          <form onSubmit={this.handleSubmit}>
-            <input type="text" onChange={this.handleTextChange} value={this.state.question_value} /> <br/>
-            <input type="checkbox">A</input>
-            <input type="text" onChange={this.handleAnswer1Change} value={this.state.answer_1}></input>
-            <br/>
-            <input type="checkbox">B</input>
-            <input type="text" onChange={this.handleAnswer2Change} value={this.state.answer_2}></input>
-            <br/>
-            <input type="checkbox">C</input>
-            <input type="text" onChange={this.handleAnswer3Change} value={this.state.answer_3}></input>
-            <br/>
-            <input type="checkbox">D</input>
-            <input type="text" onChange={this.handleAnswer4Change} value={this.state.answer_4}></input>
-            <br/>
-            <input type="submit" />
+
+          <form role='form' onSubmit={this.handleSubmit}>
+            <div className='form-group'>
+              <label for='question'>Question</label>
+              <input name='question' className= 'form-control' type="text" onChange={this.handleTextChange} value={this.state.question_value} /> <br/>
+            </div>
+            <div className='form-group'>
+              <input type="checkbox">A</input>
+              <input type="text" onChange={this.handleAnswer1Change} value={this.state.answer_1}></input>
+              <br/>
+            </div>
+            <div className='form-group'>
+              <input type="checkbox">B</input>
+              <input type="text" onChange={this.handleAnswer2Change} value={this.state.answer_2}></input>
+              <br/>
+            </div>
+            <div className='form-group'>
+              <input type="checkbox">C</input>
+              <input type="text" onChange={this.handleAnswer3Change} value={this.state.answer_3}></input>
+              <br/>
+            </div>
+            <div className='form-group'>
+              <input type="checkbox">D</input>
+              <input type="text" onChange={this.handleAnswer4Change} value={this.state.answer_4}></input>
+              <br/>
+            </div>
+            <div className='form-group'>
+              <input type="submit" />
+            </div>
           </form>
         </div>
       )
@@ -338,7 +377,7 @@ var TakeAQuizTemplate = React.createClass ({
         <form action="/lets_take_a_quiz_submit" method="post">
           <input name="authenticity_token" type="hidden" value="token_value" />
           {questions}
-          <input type="submit" />
+          <input className="btn btn-default" type="submit" />
         </form>
       </div>
     )
