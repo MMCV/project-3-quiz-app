@@ -2,13 +2,12 @@ var CohortIndex = React.createClass ({
 	render: function() {
 		var cohorts = this.props.cohorts.map(function(cohort) {
 			return (
-				<div>
 					<ShowCohort cohort={cohort} />
-				</div>
 			)
 		})
 		return (
-			<div>
+			<div className="container">
+				<h3>Cohorts</h3>
 				{cohorts}
 			</div>
 		)
@@ -17,11 +16,14 @@ var CohortIndex = React.createClass ({
 
 var ShowCohort = React.createClass ({
 	render: function() {
+		var cohortLink = "/cohorts/"+(this.props.cohort.id)
 		return (
-			<div className="container">
-				<h3>Cohort Name: {this.props.cohort.name}</h3>
-				<p><strong>Cohort Description: </strong>{this.props.cohort.description}</p>
-				<p> <strong>Cohort Members: </strong> {this.props.cohort.cohort_emails}</p>
+			<div className="panel panel-default">
+				<div className="panel-heading">
+					<a href={cohortLink}><h4>{this.props.cohort.name}</h4></a>
+				</div>
+				<div className="panel-body"><strong>Cohort Description: </strong>{this.props.cohort.description}</div>
+				<div className="panel-body"><strong>Cohort Members: </strong> {this.props.cohort.cohort_emails}</div>
 			</div>
 		)
 	}
