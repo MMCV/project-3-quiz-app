@@ -1,5 +1,5 @@
 class InstructorController < ApplicationController
-  before_filter :authorize
+  skip_before_filter  :verify_authenticity_token
 
   def show
     @user_id = current_user.id
