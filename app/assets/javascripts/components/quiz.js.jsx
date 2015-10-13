@@ -3,10 +3,7 @@ var QuizIndex = React.createClass({
     console.log('test')
     return (
       <div className="container">
-<<<<<<< HEAD
         <h3>Quizzes</h3>
-=======
->>>>>>> 4982dbbda8428668724741f9a86271e320901ddc
         <QuizList quizzes={this.props.quizzes} />
       </div>
     );
@@ -80,13 +77,6 @@ var NewQuiz = React.createClass({
   }
 });
 
-// <div className ="panel panel-default">
-//   <div className="panel-heading">
-//     <h4><a href={quizLink}> {this.props.name}</a></h4>
-//   </div>
-//   <div className="panel-body">Description: {this.props.description}</div>
-//   <div className="panel-body">Assigned Date: {this.props.adate}</div>
-// </div>
 
 var ShowQuiz = React.createClass ({
   render: function() {
@@ -211,7 +201,6 @@ var CreateTextQuestion = React.createClass ({
         <div className='container'>
           <br/>
           <h4>Create short answer question</h4>
-<<<<<<< HEAD
           <form role='form' onSubmit={this.handleSubmit}>
             <div className='form-group'>
               <label for="question"></label>
@@ -221,12 +210,7 @@ var CreateTextQuestion = React.createClass ({
               <br/>
               <input type="submit" />
             </div>
-=======
-          <form onSubmit={this.handleSubmit}>
-            <input type="text" onChange={this.handleTextChange} value={this.state.question_value} />
-            <br/>
-            <input className="btn btn-default" type="submit" />
->>>>>>> 4982dbbda8428668724741f9a86271e320901ddc
+
           </form>
         </div>
       )
@@ -316,7 +300,7 @@ var CreateMultipleChoiceQuestion = React.createClass ({
       return (
         <div>
           <br/>
-<<<<<<< HEAD
+
           <form role='form' onSubmit={this.handleSubmit}>
             <div className='form-group'>
               <label for='question'>Question</label>
