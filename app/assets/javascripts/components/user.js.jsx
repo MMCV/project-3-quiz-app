@@ -101,7 +101,7 @@ var CohortSelectOption = React.createClass({
     if (this.props.usertype == "Student"){
       return (
         <div className="form-group">
-          <label>Select a cohort to sign up for</label>
+          <label for ="cohort">Select a cohort to sign up for</label>
           <div>
             <select name="cohort">
               {cohort_select}

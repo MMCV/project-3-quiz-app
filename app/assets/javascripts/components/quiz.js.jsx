@@ -3,7 +3,7 @@ var QuizIndex = React.createClass({
     console.log('test')
     return (
       <div className="container">
-        <div>"Hello!"</div>
+        <h3>Quizzes</h3>
         <QuizList quizzes={this.props.quizzes} />
       </div>
     );
@@ -14,7 +14,7 @@ var QuizList = React.createClass({
   render: function() {
     var quizz = this.props.quizzes.map(function(quiz) {
       return (
-          <Quiz name={quiz.name} description={quiz.description} adate={quiz.assigned_date} />
+          <Quiz id={quiz.id} name={quiz.name} description={quiz.description} adate={quiz.assigned_date} />
       )
     })
     return (
@@ -25,10 +25,11 @@ var QuizList = React.createClass({
 
 var Quiz = React.createClass({
   render: function() {
+    var quizLink = "/quizzes/"+(this.props.id)
     return (
       <div className ="panel panel-default">
         <div className="panel-heading">
-          <h4>Name: {this.props.name}</h4>
+          <h4><a href={quizLink}> {this.props.name}</a></h4>
         </div>
         <div className="panel-body">Description: {this.props.description}</div>
         <div className="panel-body">Assigned Date: {this.props.adate}</div>
@@ -73,6 +74,14 @@ var NewQuiz = React.createClass({
   }
 });
 
+// <div className ="panel panel-default">
+//   <div className="panel-heading">
+//     <h4><a href={quizLink}> {this.props.name}</a></h4>
+//   </div>
+//   <div className="panel-body">Description: {this.props.description}</div>
+//   <div className="panel-body">Assigned Date: {this.props.adate}</div>
+// </div>
+
 var ShowQuiz = React.createClass ({
   render: function() {
     var questions = this.props.questions.map(function(question) {
@@ -81,13 +90,20 @@ var ShowQuiz = React.createClass ({
       )
     })
     return (
-      <div className="container">
-        <h3> {this.props.quiz.name} </h3>
-        <p> {this.props.quiz.description} </p>
-        <p> {this.props.quiz.assigned_date} </p>
-
-        <h4>Questions</h4>
-        <div>{questions}</div>
+      <div className = "container">
+        <div className="panel panel-default">
+          <div className='panel-heading'>
+            <h3> {this.props.quiz.name} </h3>
+          </div>
+          <div className = 'panel-body'> {this.props.quiz.description} </div>
+          <div className = 'panel-body'> assigned: {this.props.quiz.assigned_date} </div>
+          <div className='panel-heading'>
+            <h5>Questions</h5>
+          </div>
+          <div className = 'panel-body'>
+            {questions}
+          </div>
+        </div>
       </div>
     )
   }
